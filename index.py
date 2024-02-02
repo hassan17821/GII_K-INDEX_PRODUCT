@@ -18,7 +18,6 @@ filterd_df = df[
     & (df['kIndex'] <= 36)
 ]
 
-print(filterd_df)
 # Create the base map
 fig = plt.figure(figsize=(16, 10))
 ax = plt.axes(projection=ccrs.PlateCarree())
@@ -30,10 +29,9 @@ ax.add_feature(cfeature.COASTLINE)
 ax.add_feature(cfeature.BORDERS, linestyle=':')
 ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
 
-# Define discrete colormap
+# Define discrete colormap using 'tab10'
 num_colors = 10
-cmap = plt.get_cmap('viridis', num_colors)
-discrete_cmap = ListedColormap(cmap(np.linspace(0, 1, num_colors)))
+discrete_cmap = plt.get_cmap('tab10', num_colors)
 
 # Plot the KIndex with discrete colors
 sc = ax.scatter(
