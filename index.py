@@ -12,8 +12,8 @@ from matplotlib.colors import LinearSegmentedColormap
 filtered_df = df[
     (df['latitude'] >= 20)
     & (df['latitude'] <= 40)
-    & (df['longitude'] >= 43.753)
-    & (df['longitude'] <= 102.363)
+    & (df['longitude'] >= 50)
+    & (df['longitude'] <= 90)
     & (df['kIndex'] >= -30)
     & (df['kIndex'] <= 36)
 ]
