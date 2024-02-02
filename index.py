@@ -7,6 +7,9 @@ import cartopy.feature as cfeature
 
 # Read BUFR data
 productKey = 'kIndex'
+
+df = pdbufr.read_bufr('drive/MyDrive/GII.bufr', columns=("latitude", "longitude", "kIndex", "koIndex", "precipitableWater"))
+
 # Filter data based on latitude and longitude range
 filterd_df = df[
     (df['latitude'] >= 20)
