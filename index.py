@@ -1,24 +1,21 @@
-# Given the code , issues with this code is
-# 1- 'kIndex' has negative values but color bar showing only positive ones
-# 2- Given the information about product color contrast of values not good
-
-#  "The GII product consists of a set of indices which describe atmospheric air mass instability in cloud free areas. These indices are highly empirical in nature and might even be only relevant in certain geographic regions or under certain circumstances" 
 import pdbufr
 import numpy as np
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
+from matplotlib.colors import ListedColormap
 
 # Read BUFR data
+df = pdbufr.read_bufr('drive/MyDrive/GII.bufr', columns=("latitude", "longitude", "kIndex", "koIndex", "precipitableWater"))
 
 # Filter data based on latitude and longitude range
 filterd_df = df[
     (df['latitude'] >= 20)
-     & (df['latitude'] <= 40)
-     & (df['longitude'] >= 43.753)
-     & (df['longitude'] <= 102.363)
-     & (df['kIndex'] >= -30)
-     & (df['kIndex'] <= 36)
+    & (df['latitude'] <= 40)
+    & (df['longitude'] >= 43.753)
+    & (df['longitude'] <= 102.363)
+    & (df['kIndex'] >= -30)
+    & (df['kIndex'] <= 36)
 ]
 
 print(filterd_df)
@@ -33,11 +30,23 @@ ax.add_feature(cfeature.COASTLINE)
 ax.add_feature(cfeature.BORDERS, linestyle=':')
 ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
 
-# Plot the KIndex
-sc = ax.scatter(filterd_df['longitude'], filterd_df['latitude'], c=filterd_df['kIndex'], cmap='RdBu', transform=ccrs.PlateCarree(), s=1)
+# Define discrete colormap
+num_colors = 10
+cmap = plt.get_cmap('viridis', num_colors)
+discrete_cmap = ListedColormap(cmap(np.linspace(0, 1, num_colors)))
+
+# Plot the KIndex with discrete colors
+sc = ax.scatter(
+    filterd_df['longitude'],
+    filterd_df['latitude'],
+    c=filterd_df['kIndex'],
+    cmap=discrete_cmap,
+    transform=ccrs.PlateCarree(),
+    s=1
+)
 
 # Add a colorbar
-cbar = plt.colorbar(sc)
+cbar = plt.colorbar(sc, ticks=np.linspace(filterd_df['kIndex'].min(), filterd_df['kIndex'].max(), num_colors))
 cbar.set_label('K-Index')
 
 # Add a title
