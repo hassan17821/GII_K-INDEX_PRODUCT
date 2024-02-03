@@ -8,7 +8,7 @@ from matplotlib.colors import Normalize, ListedColormap, LinearSegmentedColormap
 
 # Read BUFR data
 # (Assuming 'df' is already defined)
-productKey = 'koIndex'
+productKey = 'parcelLiftedIndexTo500Hpa'
 productLabel = 'kO Index'
 
 # Set latitude and longitude bounds
