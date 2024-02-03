@@ -28,6 +28,7 @@ filtered_df = df[
 
 # Create the base map
 fig = plt.figure(figsize=(16, 16))
+# fig.set_size_inches(15, 8.5)
 ax = plt.axes(projection=ccrs.PlateCarree())
 ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]- 3.4])
 
@@ -56,11 +57,14 @@ norm = Normalize(vmin=minMaxVal[0], vmax=minMaxVal[1])
 sc = ax.scatter(filtered_df['longitude'], filtered_df['latitude'], c=filtered_df[productKey],
                 cmap=combined_cmap, transform=ccrs.PlateCarree(), s=1, norm=norm)
 
-# Add a colorbar with fixed ticks and labels
+# Save the figure
+fig.savefig('drive/MyDrive/GII_09-45__2024-02-02.webp', format='webp', dpi=300, bbox_inches='tight',pad_inches=0)
+
+## Add a colorbar with fixed ticks and labels
 cbar = plt.colorbar(sc, ticks=ranges, orientation='horizontal')
 cbar.set_label(productLabel)
 
-# Add a title
+## Add a title
 plt.title(productLabel + ' Plot')
 
 plt.show()
