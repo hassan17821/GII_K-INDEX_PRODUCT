@@ -56,6 +56,8 @@ norm = Normalize(vmin=minMaxVal[0], vmax=minMaxVal[1])
 sc = ax.scatter(filtered_df['longitude'], filtered_df['latitude'], c=filtered_df[productKey],
                 cmap=combined_cmap, transform=ccrs.PlateCarree(), s=1, norm=norm)
 
+fig.savefig('drive/MyDrive/GII_KIndex_09-45__2024-02-02.webp', format='webp', dpi=300, bbox_inches='tight',pad_inches=0)
+
 # Add a colorbar with fixed ticks and labels
 cbar = plt.colorbar(sc, ticks=ranges, orientation='vertical')
 cbar.set_label(productLabel)
