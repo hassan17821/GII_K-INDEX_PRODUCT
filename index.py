@@ -27,9 +27,9 @@ filtered_df = df[
 ]
 
 # Create the base map
-fig = plt.figure(figsize=(16, 10))
+fig = plt.figure(figsize=(16, 16))
 ax = plt.axes(projection=ccrs.PlateCarree())
-ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]])
+ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]- 3.4])
 
 # Add map features
 ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
