@@ -30,6 +30,7 @@ for /d %%D in ("S:/Archive/%mydate%/*") do (
         set "source_drive=S:/Archive/%mydate%/!hhmm!/GII.bufr"
         if exist "!source_drive!" (
             python %python_script% "!date!" "!hhmm!" "!source_drive!" "!destination_folder!"
+          :: start "" cmd /c python %python_script% "!date!" "!hhmm!" "!source_drive!" "!destination_folder!"
         )
     )
 )
