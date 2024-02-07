@@ -28,8 +28,8 @@ for /d %%D in ("S:/Archive/%mydate%/*") do (
     for /f "tokens=1,* delims=-" %%X in ("%%~nxD") do (
         set "hhmm=%%X-%%Y"
         set "source_drive=S:/Archive/%mydate%/!hhmm!/GII.bufr"
-        set "destination_drive=T:/Mohsin/SATMET_PRODUCTS/GII_PRODUCT/%mydate%/LRIT_GII_KINDEX [!hhmm!].webp"
-        if not exist "!destination_drive!" if exist "!source_drive!" (
+        set "destination_drive=T:/Mohsin/SATMET_PRODUCTS/GII_PRODUCT/%mydate%"
+        if exist "!source_drive!" (
             python %python_script% "!date!" "!hhmm!" "!source_drive!" "!destination_drive!"
         )
     )
