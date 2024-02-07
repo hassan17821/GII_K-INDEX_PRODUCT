@@ -118,7 +118,9 @@ if len(sys.argv) == 5:
     date_arg, time_arg, input_path_arg, output_path_arg = sys.argv[1:]
     output_path_kIndex = f'{output_path_arg}/LRIT_GII_KINDEX [{time_arg}].webp'
     output_path_koIndex = f'{output_path_arg}/LRIT_GII_KOINDEX [{time_arg}].webp'
-    print(date_arg, time_arg, input_path_arg , output_path_kIndex, output_path_koIndex)
+    print(input_path_arg)
+    print(output_path_kIndex)
+    print(output_path_koIndex)
     # if output_path_kIndex exists, then donot run the function
     if os.path.exists(output_path_kIndex) and os.path.exists(output_path_koIndex):
         print("output_path_kIndex and output_path_koIndex already exists")
