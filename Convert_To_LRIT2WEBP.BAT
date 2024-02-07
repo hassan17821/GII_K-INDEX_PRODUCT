@@ -19,29 +19,12 @@ for /d %%D in ("S:/Archive/%mydate%/*") do (
         echo "!hhmm!"
         set "source_drive=S:/Archive/%mydate%/!hhmm!/GII.bufr"
         
+        set "destination_drive=T:/Mohsin/SATMET_PRODUCTS/GII_PRODUCT/%mydate%/LRIT_GII_KINDEX [!hhmm!].webp"
         echo "!source_drive!"
-
-        :: Check if GII.bufr file exists inside the current folder
-        if exist "!source_drive!" (
-            set "destination_drive=T:/Mohsin/SATMET_PRODUCTS/GII_PRODUCT/%mydate%/LRIT_GII_KINDEX [!hhmm!].webp"
-            
-            :::: Check if the destination directory exists, create if not
-            ::set "directory=T:/Mohsin/SATMET_PRODUCTS/GII_PRODUCT/%mydate%"
-            ::if not exist "%directory%" (
-            ::    mkdir "%directory%"
-            ::    echo Directory created: %directory%
-            ::) else (
-            ::    echo Directory already exists: %directory%
-            ::)
-
-            :: Activate the Python environment if needed
-            :: call activate my_python_env
-
-            :: Run the Python script with the command-line arguments
-            if not exist "!destination_drive!" (
-               python %python_script% "!date!" "!time!" "!source_drive!" "!destination_drive!"
-            )
+        if not exist "!destination_drive!" if exist "!source_drive!" (
+            python %python_script% "!date!" "!time!" "!source_drive!" "!destination_drive!"
         )
+      
     )
 )
 
