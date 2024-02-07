@@ -29,7 +29,7 @@ def plot_kIndex(date, time, input_path, output_path, df):
     # Create the base map
     fig = plt.figure(figsize=(16, 16))
     ax = plt.axes(projection=ccrs.PlateCarree())
-    ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]- 3.4])
+    ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1] - 3.4])
 
     # Add map features
     ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
@@ -81,7 +81,7 @@ def plot_koIndex(date, time, input_path, output_path, df):
 
     fig = plt.figure(figsize=(16, 16))
     ax = plt.axes(projection=ccrs.PlateCarree())
-    ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]- 3.4])
+    ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1] - 3.4])
 
     # Add map features
     ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
@@ -119,17 +119,17 @@ if len(sys.argv) == 5:
     output_path_kIndex = f'{output_path_arg}/LRIT_GII_KINDEX [{time_arg}].webp'
     output_path_koIndex = f'{output_path_arg}/LRIT_GII_KOINDEX [{time_arg}].webp'
     print(input_path_arg)
-    print(output_path_kIndex)
-    print(output_path_koIndex)
     # if output_path_kIndex exists, then donot run the function
     if os.path.exists(output_path_kIndex) and os.path.exists(output_path_koIndex):
         print("output_path_kIndex and output_path_koIndex already exists")
     else:
         df = pdbufr.read_bufr(input_path_arg, columns=("latitude", "longitude", "kIndex", "parcelLiftedIndexTo500Hpa", "precipitableWater"))
         if not os.path.exists(output_path_kIndex):
+            print("Processing kIndex ", output_path_kIndex)
             plot_kIndex(date_arg, time_arg, input_path_arg, output_path_kIndex, df)
         
         if not os.path.exists(output_path_koIndex):
+            print("Processing kOIndex ", output_path_koIndex)
             plot_koIndex(date_arg, time_arg, input_path_arg, output_path_koIndex, df)
     
 else:
