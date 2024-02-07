@@ -8,9 +8,6 @@ import cartopy.feature as cfeature
 from matplotlib.colors import Normalize, ListedColormap, LinearSegmentedColormap
 
 def plot_kIndex(date, time, input_path, output_path):
-
-    print(date, time, input_path_arg, output_path)
-
     productKey = 'kIndex'
     productLabel = 'k-Index'
     imagePath = output_path
@@ -58,17 +55,18 @@ def plot_kIndex(date, time, input_path, output_path):
     norm = Normalize(vmin=minMaxVal[0], vmax=minMaxVal[1])
 
     # Plot the KIndex with the combined custom colormap
-    sc = ax.scatter(filtered_df['longitude'], filtered_df['latitude'], c=filtered_df[productKey],
-                    cmap=combined_cmap, transform=ccrs.PlateCarree(), s=1, norm=norm)
+    sc = ax.scatter(filtered_df['longitude'], filtered_df['latitude'], c=filtered_df[productKey], cmap=combined_cmap, transform=ccrs.PlateCarree(), s=1, norm=norm)
 
     # Save the figure using the provided output path
     fig.savefig(imagePath, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
+
     # Check if command-line arguments are provided
+
 if len(sys.argv) == 5:
     # Extract command-line arguments
     date_arg, time_arg, input_path_arg, output_path_arg = sys.argv[1:]
-
+    print(date_arg, time_arg, input_path_arg, output_path_arg)
     # Call the function with the provided arguments
     plot_kIndex(date_arg, time_arg, input_path_arg, output_path_arg)
 else:
