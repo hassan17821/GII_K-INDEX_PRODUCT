@@ -19,7 +19,7 @@ for /f "delims=" %%b in ('"powershell [DateTime]::Now.AddHours(-5).ToString('HH-
 set time=%mytime%
 for /f "delims=" %%a in ('"powershell [DateTime]::Now.AddHours(-5).ToString('yyyy-MM-dd')"') do set mydate=%%a
 set date=%mydate%
-set "destination_folder=T:/Mohsin/SATMET_PRODUCTS/GII_PRODUCT/%mydate%"
+set "destination_folder=D:/server1/Archive/%mydate%"
 if not exist "!destination_folder!" mkdir "!destination_folder!"
 
 :: Iterate over HH-mm folders within the specified date
@@ -28,9 +28,8 @@ for /d %%D in ("S:/Archive/%mydate%/*") do (
     for /f "tokens=1,* delims=-" %%X in ("%%~nxD") do (
         set "hhmm=%%X-%%Y"
         set "source_drive=S:/Archive/%mydate%/!hhmm!/GII.bufr"
-        set "destination_drive=T:/Mohsin/SATMET_PRODUCTS/GII_PRODUCT/%mydate%"
         if exist "!source_drive!" (
-            python %python_script% "!date!" "!hhmm!" "!source_drive!" "!destination_drive!"
+            python %python_script% "!date!" "!hhmm!" "!source_drive!" "!destination_folder!"
         )
     )
 )

@@ -124,14 +124,13 @@ if len(sys.argv) == 5:
     # if output_path_kIndex exists, then donot run the function
     if os.path.exists(output_path_kIndex) and os.path.exists(output_path_koIndex):
         print("output_path_kIndex and output_path_koIndex already exists")
-        exit
-
-    df = pdbufr.read_bufr(input_path_arg, columns=("latitude", "longitude", "kIndex", "parcelLiftedIndexTo500Hpa", "precipitableWater"))
-    if not os.path.exists(output_path_kIndex):
-        plot_kIndex(date_arg, time_arg, input_path_arg, output_path_kIndex, df)
-    
-    if not os.path.exists(output_path_koIndex):
-        plot_koIndex(date_arg, time_arg, input_path_arg, output_path_koIndex, df)
+    else:
+        df = pdbufr.read_bufr(input_path_arg, columns=("latitude", "longitude", "kIndex", "parcelLiftedIndexTo500Hpa", "precipitableWater"))
+        if not os.path.exists(output_path_kIndex):
+            plot_kIndex(date_arg, time_arg, input_path_arg, output_path_kIndex, df)
+        
+        if not os.path.exists(output_path_koIndex):
+            plot_koIndex(date_arg, time_arg, input_path_arg, output_path_koIndex, df)
     
 else:
     print("Usage: python plot_kIndex.py <date> <time> <output_path>")
