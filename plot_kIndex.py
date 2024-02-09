@@ -29,7 +29,7 @@ def plot_kIndex(date, time, input_path, output_path, df):
     # Create the base map
     fig = plt.figure(figsize=(16, 16))
     ax = plt.axes(projection=ccrs.PlateCarree())
-    ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1] - 3.4])
+    ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
 
     # Add map features
     ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
@@ -81,7 +81,7 @@ def plot_koIndex(date, time, input_path, output_path, df):
 
     fig = plt.figure(figsize=(16, 16))
     ax = plt.axes(projection=ccrs.PlateCarree())
-    ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1] - 3.4])
+    ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
 
     # Add map features
     ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
