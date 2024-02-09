@@ -111,6 +111,36 @@ def plot_koIndex(date, time, input_path, output_path, df):
     fig.savefig(output_path, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
 
+
+    # Check if command-line arguments are provided
+
+def plot_PrecipitableWater(date, time, input_path, output_path, df):
+    productKey = 'precipitableWater'
+    latBound = [7.22, 37.454]
+    lngBound = [43.753, 102.363]
+
+    # Filter data based on latitude and longitude range
+    filtered_df = df[
+    (df['latitude'] >= latBound[0])
+    & (df['latitude'] <= latBound[1])
+    & (df['longitude'] >= lngBound[0])
+    & (df['longitude'] <= lngBound[1])
+    ]
+
+    # Create the base map
+    fig = plt.figure(figsize=(16, 10))
+    ax = plt.axes(projection=ccrs.Mercator())
+    ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
+
+    # Add map features
+    ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
+    ax.add_feature(cfeature.BORDERS, linestyle=':')
+    ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
+    # Save the figure
+    sc = ax.scatter(filtered_df['longitude'], filtered_df['latitude'], c=filtered_df[productKey], cmap='Spectral', transform=ccrs.PlateCarree(), s=1)
+
+    fig.savefig(output_path, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
+
     # Check if command-line arguments are provided
 
 if len(sys.argv) == 5:
@@ -118,10 +148,12 @@ if len(sys.argv) == 5:
     date_arg, time_arg, input_path_arg, output_path_arg = sys.argv[1:]
     output_path_kIndex = f'{output_path_arg}/LRIT_GII_KINDEX [{time_arg}].webp'
     output_path_koIndex = f'{output_path_arg}/LRIT_GII_KOINDEX [{time_arg}].webp'
+    output_path_PrecipitableWater = f'{output_path_arg}/LRIT_GII_PRECIPITABLE_WATER [{time_arg}].webp'
+
     print(input_path_arg)
     # if output_path_kIndex exists, then donot run the function
-    if os.path.exists(output_path_kIndex) and os.path.exists(output_path_koIndex):
-        print("output_path_kIndex and output_path_koIndex already exists")
+    if os.path.exists(output_path_kIndex) and os.path.exists(output_path_koIndex) and os.path.exists(output_path_PrecipitableWater):
+        print("output_path_kIndex and output_path_koIndex and output_path_PrecipitableWater already exists")
     else:
         df = pdbufr.read_bufr(input_path_arg, columns=("latitude", "longitude", "kIndex", "parcelLiftedIndexTo500Hpa", "precipitableWater"))
         if not os.path.exists(output_path_kIndex):
@@ -131,6 +163,10 @@ if len(sys.argv) == 5:
         if not os.path.exists(output_path_koIndex):
             print("Processing kOIndex ", output_path_koIndex)
             plot_koIndex(date_arg, time_arg, input_path_arg, output_path_koIndex, df)
-    
+
+        if not os.path.exists(output_path_PrecipitableWater):
+            print("Processing PrecipitableWater ", output_path_PrecipitableWater)
+            plot_PrecipitableWater(date_arg, time_arg, input_path_arg, output_path_PrecipitableWater, df)
+
 else:
     print("Usage: python plot_kIndex.py <date> <time> <output_path>")
