@@ -59,8 +59,6 @@ def plot_kIndex(date, time, input_path, output_path, df):
     fig.savefig(output_path, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
 
-    # Check if command-line arguments are provided
-
 def plot_koIndex(date, time, input_path, output_path, df):
     productKey = 'parcelLiftedIndexTo500Hpa'
     productLabel = 'kO Index'
@@ -111,9 +109,6 @@ def plot_koIndex(date, time, input_path, output_path, df):
     fig.savefig(output_path, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
 
-
-    # Check if command-line arguments are provided
-
 def plot_PrecipitableWater(date, time, input_path, output_path, df):
     productKey = 'precipitableWater'
     latBound = [7.22, 37.454]
@@ -140,8 +135,7 @@ def plot_PrecipitableWater(date, time, input_path, output_path, df):
     sc = ax.scatter(filtered_df['longitude'], filtered_df['latitude'], c=filtered_df[productKey], cmap='Spectral', transform=ccrs.PlateCarree(), s=1)
 
     fig.savefig(output_path, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
-
-    # Check if command-line arguments are provided
+    
 
 if len(sys.argv) == 5:
     # Extract command-line arguments
