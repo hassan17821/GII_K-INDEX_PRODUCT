@@ -32,9 +32,9 @@ def plot_kIndex(date, time, input_path, output_path, df):
     ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
 
     # Add map features
-    ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
-    ax.add_feature(cfeature.BORDERS, linestyle=':')
-    ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
+    # ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
+    # ax.add_feature(cfeature.BORDERS, linestyle=':')
+    # ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
 
     brown_cmap = LinearSegmentedColormap.from_list('brown', ['#D2B48C', '#8B4513'], N=20)
     purple_cmap = LinearSegmentedColormap.from_list('blue', ['#A0A0E6', '#524788'], N=5)
@@ -82,9 +82,9 @@ def plot_koIndex(date, time, input_path, output_path, df):
     ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
 
     # Add map features
-    ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
-    ax.add_feature(cfeature.BORDERS, linestyle=':')
-    ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
+    # ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
+    # ax.add_feature(cfeature.BORDERS, linestyle=':')
+    # ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
 
     brown_cmap = LinearSegmentedColormap.from_list('brown', ['#D2B48C', '#8B4513'], N=20)
     purple_cmap = LinearSegmentedColormap.from_list('blue', ['#A0A0E6', '#524788'], N=4)
@@ -128,9 +128,9 @@ def plot_PrecipitableWater(date, time, input_path, output_path, df):
     ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
 
     # Add map features
-    ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
-    ax.add_feature(cfeature.BORDERS, linestyle=':')
-    ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
+    # ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
+    # ax.add_feature(cfeature.BORDERS, linestyle=':')
+    # ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
     # Save the figure
     sc = ax.scatter(filtered_df['longitude'], filtered_df['latitude'], c=filtered_df[productKey], cmap='Spectral', transform=ccrs.PlateCarree(), s=1)
 
