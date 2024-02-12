@@ -167,35 +167,39 @@ def plot_koIndex(date, time, input_path, output_path, df):
     # Save the figure
     fig.savefig(output_path, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
+
+def process_function(date_arg, time_arg, input_path_arg, output_path, function_name, df):
+    if not os.path.exists(output_path):
+        print(f"Processing {function_name} {output_path}")
+        globals()[function_name](date_arg, time_arg, input_path_arg, output_path, df)
+
+
 if len(sys.argv) == 5:
     # Extract command-line arguments
     date_arg, time_arg, input_path_arg, output_path_arg = sys.argv[1:]
-    output_path_kIndex = f'{output_path_arg}/LRIT_GII_KINDEX [{time_arg}].webp'
-    output_path_koIndex = f'{output_path_arg}/LRIT_GII_KOINDEX [{time_arg}].webp'
-    output_path_PrecipitableWater = f'{output_path_arg}/LRIT_GII_PRECIPITABLE_WATER [{time_arg}].webp'
-    output_path_parcelLiftedIndexTo500Hpa = f'{output_path_arg}/LRIT_GII_parcelLiftedIndexTo500Hpa [{time_arg}].webp'
+    output_paths = [
+        f'{output_path_arg}/LRIT_GII_KINDEX [{time_arg}].webp',
+        f'{output_path_arg}/LRIT_GII_KOINDEX [{time_arg}].webp',
+        f'{output_path_arg}/LRIT_GII_PRECIPITABLE_WATER [{time_arg}].webp',
+        f'{output_path_arg}/LRIT_GII_parcelLiftedIndexTo500Hpa [{time_arg}].webp'
+    ]
+    function_names = [
+        "plot_kIndex",
+        "plot_koIndex",
+        "plot_PrecipitableWater",
+        "plot_parcelLiftedIndexTo500Hpa"
+    ]
 
     print(input_path_arg)
-    # if output_path_kIndex exists, then donot run the function
-    if os.path.exists(output_path_kIndex) and os.path.exists(output_path_koIndex) and os.path.exists(output_path_PrecipitableWater) and  os.path.exists(output_path_parcelLiftedIndexTo500Hpa):
-        print("output_path_kIndex and output_path_koIndex and output_path_PrecipitableWater already exists")
+    # Check if output paths exist
+    if all(os.path.exists(path) for path in output_paths):
+        print("All output paths already exist")
     else:
-        df = pdbufr.read_bufr(input_path_arg, columns=("latitude", "longitude", "kIndex", "parcelLiftedIndexTo500Hpa", "precipitableWater"))
-        if not os.path.exists(output_path_kIndex):
-            print("Processing kIndex ", output_path_kIndex)
-            plot_kIndex(date_arg, time_arg, input_path_arg, output_path_kIndex, df)
-        
-        if not os.path.exists(output_path_koIndex):
-            print("Processing kOIndex ", output_path_koIndex)
-            plot_koIndex(date_arg, time_arg, input_path_arg, output_path_koIndex, df)
-
-        if not os.path.exists(output_path_PrecipitableWater):
-            print("Processing PrecipitableWater ", output_path_PrecipitableWater)
-            plot_PrecipitableWater(date_arg, time_arg, input_path_arg, output_path_PrecipitableWater, df)
-
-        if not os.path.exists(output_path_parcelLiftedIndexTo500Hpa):
-            print("Processing parcelLiftedIndexTo500Hpa ", output_path_parcelLiftedIndexTo500Hpa)
-            plot_parcelLiftedIndexTo500Hpa(date_arg, time_arg, input_path_arg, output_path_parcelLiftedIndexTo500Hpa, df)
+        df = pdbufr.read_bufr(input_path_arg, columns=("latitude", "longitude", "kIndex","koIndex", "parcelLiftedIndexTo500Hpa", "precipitableWater"))
+        for output_path, function_name in zip(output_paths, function_names):
+            if not os.path.exists(output_path):
+                print(f"Processing {function_name} {output_path}")
+                globals()[function_name](date_arg, time_arg, input_path_arg, output_path, df)
 
 else:
     print("Usage: python plot_kIndex.py <date> <time> <output_path>")
