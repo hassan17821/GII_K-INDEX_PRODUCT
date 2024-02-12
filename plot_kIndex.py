@@ -177,7 +177,7 @@ if len(sys.argv) == 5:
 
     print(input_path_arg)
     # if output_path_kIndex exists, then donot run the function
-    if os.path.exists(output_path_kIndex) and os.path.exists(output_path_koIndex) and os.path.exists(output_path_PrecipitableWater):
+    if os.path.exists(output_path_kIndex) and os.path.exists(output_path_koIndex) and os.path.exists(output_path_PrecipitableWater) and  os.path.exists(output_path_parcelLiftedIndexTo500Hpa):
         print("output_path_kIndex and output_path_koIndex and output_path_PrecipitableWater already exists")
     else:
         df = pdbufr.read_bufr(input_path_arg, columns=("latitude", "longitude", "kIndex", "parcelLiftedIndexTo500Hpa", "precipitableWater"))
