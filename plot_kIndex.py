@@ -32,9 +32,9 @@ def plot_kIndex(date, time, input_path, output_path, df):
     ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
 
     # Add map features
-    # ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
-    # ax.add_feature(cfeature.BORDERS, linestyle=':')
-    # ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
+    ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
+    ax.add_feature(cfeature.BORDERS, linestyle=':')
+    ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
 
     brown_cmap = LinearSegmentedColormap.from_list('brown', ['#D2B48C', '#8B4513'], N=20)
     purple_cmap = LinearSegmentedColormap.from_list('blue', ['#A0A0E6', '#524788'], N=5)
@@ -59,9 +59,8 @@ def plot_kIndex(date, time, input_path, output_path, df):
     fig.savefig(output_path, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
 
-def plot_koIndex(date, time, input_path, output_path, df):
+def plot_parcelLiftedIndexTo500Hpa(date, time, input_path, output_path, df):
     productKey = 'parcelLiftedIndexTo500Hpa'
-    productLabel = 'kO Index'
     latBound = [7.22, 37.454]
     lngBound = [43.753, 102.363]
     ranges = [-16 , -8 , -4 , 0 , 10 , 20]
@@ -82,9 +81,9 @@ def plot_koIndex(date, time, input_path, output_path, df):
     ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
 
     # Add map features
-    # ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
-    # ax.add_feature(cfeature.BORDERS, linestyle=':')
-    # ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
+    ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
+    ax.add_feature(cfeature.BORDERS, linestyle=':')
+    ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
 
     brown_cmap = LinearSegmentedColormap.from_list('brown', ['#D2B48C', '#8B4513'], N=20)
     purple_cmap = LinearSegmentedColormap.from_list('blue', ['#A0A0E6', '#524788'], N=4)
@@ -128,14 +127,45 @@ def plot_PrecipitableWater(date, time, input_path, output_path, df):
     ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
 
     # Add map features
-    # ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
-    # ax.add_feature(cfeature.BORDERS, linestyle=':')
-    # ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
+    ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
+    ax.add_feature(cfeature.BORDERS, linestyle=':')
+    ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
     # Save the figure
     sc = ax.scatter(filtered_df['longitude'], filtered_df['latitude'], c=filtered_df[productKey], cmap='Spectral', transform=ccrs.PlateCarree(), s=1)
 
     fig.savefig(output_path, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
     
+
+def plot_koIndex(date, time, input_path, output_path, df):
+    productKey = 'koIndex'
+    productLabel = 'kO Index'
+    latBound = [7.22, 37.454]
+    lngBound = [43.753, 102.363]
+    ranges = [-16 , -8 , -4 , 0 , 10 , 20]
+    minMaxVal = [-30 , 50]
+
+    # Filter data based on latitude and longitude range
+    filtered_df = df[
+        (df['latitude'] >= latBound[0])
+        & (df['latitude'] <= latBound[1])
+        & (df['longitude'] >= lngBound[0])
+        & (df['longitude'] <= lngBound[1])
+        & (df[productKey] >= minMaxVal[0])
+        & (df[productKey] <= minMaxVal[1])
+    ]
+
+    fig = plt.figure(figsize=(16, 16))
+    ax = plt.axes(projection=ccrs.Mercator())
+    ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
+
+    # Define color ranges and corresponding normalization values
+    norm = Normalize(vmin=minMaxVal[0], vmax=minMaxVal[1])
+
+    # Plot the KIndex with the combined custom colormap
+    sc = ax.scatter(filtered_df['longitude'], filtered_df['latitude'], c=filtered_df[productKey], cmap='Spectral', transform=ccrs.PlateCarree(), s=1, norm=norm)
+
+    # Save the figure
+    fig.savefig(output_path, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
 if len(sys.argv) == 5:
     # Extract command-line arguments
@@ -143,6 +173,7 @@ if len(sys.argv) == 5:
     output_path_kIndex = f'{output_path_arg}/LRIT_GII_KINDEX [{time_arg}].webp'
     output_path_koIndex = f'{output_path_arg}/LRIT_GII_KOINDEX [{time_arg}].webp'
     output_path_PrecipitableWater = f'{output_path_arg}/LRIT_GII_PRECIPITABLE_WATER [{time_arg}].webp'
+    output_path_parcelLiftedIndexTo500Hpa = f'{output_path_arg}/LRIT_GII_parcelLiftedIndexTo500Hpa [{time_arg}].webp'
 
     print(input_path_arg)
     # if output_path_kIndex exists, then donot run the function
@@ -161,6 +192,10 @@ if len(sys.argv) == 5:
         if not os.path.exists(output_path_PrecipitableWater):
             print("Processing PrecipitableWater ", output_path_PrecipitableWater)
             plot_PrecipitableWater(date_arg, time_arg, input_path_arg, output_path_PrecipitableWater, df)
+
+        if not os.path.exists(output_path_parcelLiftedIndexTo500Hpa):
+            print("Processing parcelLiftedIndexTo500Hpa ", output_path_parcelLiftedIndexTo500Hpa)
+            plot_parcelLiftedIndexTo500Hpa(date_arg, time_arg, input_path_arg, output_path_parcelLiftedIndexTo500Hpa, df)
 
 else:
     print("Usage: python plot_kIndex.py <date> <time> <output_path>")
