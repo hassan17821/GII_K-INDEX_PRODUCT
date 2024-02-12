@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 from matplotlib.colors import Normalize, ListedColormap, LinearSegmentedColormap
+import threading
 
 def plot_kIndex(date, time, input_path, output_path, df):
     productKey = 'kIndex'
@@ -30,11 +31,6 @@ def plot_kIndex(date, time, input_path, output_path, df):
     fig = plt.figure(figsize=(16, 16))
     ax = plt.axes(projection=ccrs.Mercator())
     ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
-
-    # Add map features
-    ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
-    ax.add_feature(cfeature.BORDERS, linestyle=':')
-    ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
 
     brown_cmap = LinearSegmentedColormap.from_list('brown', ['#D2B48C', '#8B4513'], N=20)
     purple_cmap = LinearSegmentedColormap.from_list('blue', ['#A0A0E6', '#524788'], N=5)
@@ -80,11 +76,6 @@ def plot_parcelLiftedIndexTo500Hpa(date, time, input_path, output_path, df):
     ax = plt.axes(projection=ccrs.Mercator())
     ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
 
-    # Add map features
-    ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
-    ax.add_feature(cfeature.BORDERS, linestyle=':')
-    ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
-
     brown_cmap = LinearSegmentedColormap.from_list('brown', ['#D2B48C', '#8B4513'], N=20)
     purple_cmap = LinearSegmentedColormap.from_list('blue', ['#A0A0E6', '#524788'], N=4)
     yellow_cmap = LinearSegmentedColormap.from_list('green', ['#F0EB9F', '#A09D12'], N=4)
@@ -122,14 +113,10 @@ def plot_PrecipitableWater(date, time, input_path, output_path, df):
     ]
 
     # Create the base map
-    fig = plt.figure(figsize=(16, 10))
+    fig = plt.figure(figsize=(16, 16))
     ax = plt.axes(projection=ccrs.Mercator())
     ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
 
-    # Add map features
-    ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
-    ax.add_feature(cfeature.BORDERS, linestyle=':')
-    ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
     # Save the figure
     sc = ax.scatter(filtered_df['longitude'], filtered_df['latitude'], c=filtered_df[productKey], cmap='Spectral', transform=ccrs.PlateCarree(), s=1)
 
@@ -196,10 +183,20 @@ if len(sys.argv) == 5:
         print("All output paths already exist")
     else:
         df = pdbufr.read_bufr(input_path_arg, columns=("latitude", "longitude", "kIndex","koIndex", "parcelLiftedIndexTo500Hpa", "precipitableWater"))
+        threads = []
         for output_path, function_name in zip(output_paths, function_names):
-            if not os.path.exists(output_path):
-                print(f"Processing {function_name} {output_path}")
-                globals()[function_name](date_arg, time_arg, input_path_arg, output_path, df)
+            thread = threading.Thread(target=process_function, args=(date_arg, time_arg, input_path_arg, output_path, function_name, df))
+            thread.start()
+            threads.append(thread)
+        
+        for thread in threads:
+            thread.join()
 
 else:
     print("Usage: python plot_kIndex.py <date> <time> <output_path>")
+
+
+    # Add map features
+    # ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
+    # ax.add_feature(cfeature.BORDERS, linestyle=':')
+    # ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
