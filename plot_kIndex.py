@@ -196,7 +196,7 @@ else:
     print("Usage: python plot_kIndex.py <date> <time> <output_path>")
 
 
-    # Add map features
-    # ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
-    # ax.add_feature(cfeature.BORDERS, linestyle=':')
-    # ax.add_feature(cfeature.OCEAN, facecolor='lightblue')
+# Add map features
+# ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
+# ax.add_feature(cfeature.BORDERS, linestyle=':')
+# ax.add_feature(cfeature.OCEAN, facecolor='lightblue')

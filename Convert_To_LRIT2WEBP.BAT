@@ -36,7 +36,7 @@ for /d %%D in ("S:/Archive/%mydate%/*") do (
 )
 
 :: Deactivate Conda environment
-call "%CONDA_PATH%\Scripts\deactivate.bat"
+@REM call "%CONDA_PATH%\Scripts\deactivate.bat"
 
 :: Wait for 5 minutes before the next iteration
 timeout /t 300 /nobreak
