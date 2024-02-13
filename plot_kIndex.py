@@ -154,13 +154,6 @@ def plot_koIndex(date, time, input_path, output_path, df):
     # Save the figure
     fig.savefig(output_path, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
-
-def process_function(date_arg, time_arg, input_path_arg, output_path, function_name, df):
-    if not os.path.exists(output_path):
-        print(f"Processing {function_name} {output_path}")
-        globals()[function_name](date_arg, time_arg, input_path_arg, output_path, df)
-
-
 if len(sys.argv) == 5:
     # Extract command-line arguments
     date_arg, time_arg, input_path_arg, output_path_arg = sys.argv[1:]
@@ -183,14 +176,10 @@ if len(sys.argv) == 5:
         print("All output paths already exist")
     else:
         df = pdbufr.read_bufr(input_path_arg, columns=("latitude", "longitude", "kIndex","koIndex", "parcelLiftedIndexTo500Hpa", "precipitableWater"))
-        threads = []
         for output_path, function_name in zip(output_paths, function_names):
-            thread = threading.Thread(target=process_function, args=(date_arg, time_arg, input_path_arg, output_path, function_name, df))
-            thread.start()
-            threads.append(thread)
-        
-        for thread in threads:
-            thread.join()
+            if not os.path.exists(output_path):
+                print(f"Processing {function_name} {output_path}")
+                globals()[function_name](date_arg, time_arg, input_path_arg, output_path, df)
 
 else:
     print("Usage: python plot_kIndex.py <date> <time> <output_path>")
