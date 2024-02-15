@@ -55,4 +55,4 @@ if len(sys.argv) == 5:
                 function(output_path, df)
 
 else:
-    print("Usage: python plot_kIndex.py <date> <time> <output_path>")
+    print("Some required arguments are missing.")
