@@ -9,6 +9,8 @@ def plot_maximumBuoyancy(df, outputPath):
     lngBound = [43.753, 102.363]
     productKey = '#1#maximumBuoyancy'
     cmap = 'Spectral_r'
+    norm = Normalize(vmin=-30, vmax=50)
+
     # Filter data based on latitude and longitude range
     filtered_df = df[
         (df['#1#latitude'] >= latBound[0])
