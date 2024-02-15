@@ -7,6 +7,7 @@ from kIndex import plot_kIndex
 from koIndex import plot_koIndex
 from parcelLiftedIndexTo500Hpa import plot_parcelLiftedIndexTo500Hpa
 from precipitableWater import plot_totalPrecipitableWater, plot_precipitableWater10To500mbar, plot_precipitableWater500To850mbar, plot_precipitableWater850To1000mbar
+from maximumBuoyancy import plot_maximumBuoyancy
 if len(sys.argv) == 5:
     # Extract command-line arguments
     date_arg, time_arg, input_path_arg, output_path_arg = sys.argv[1:]
@@ -38,6 +39,10 @@ if len(sys.argv) == 5:
         {
             'output_path': f'{output_path_arg}/LRIT_GII_precipitableWater850To1000mbar [{time_arg}].webp',
             'function': plot_precipitableWater850To1000mbar
+        },
+        {
+            'output_path': f'{output_path_arg}/LRIT_GII_maximumBuoyancy [{time_arg}].webp',
+            'function': plot_maximumBuoyancy
         }
     ]
 
