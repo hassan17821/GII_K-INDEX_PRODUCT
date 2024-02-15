@@ -8,7 +8,7 @@ set CONDA_PATH=C:\Softwares\miniconda
 set CONDA_ENV=base
 
 :: Set the Python script file path
-set python_script=D:/SATMET_PRODUCTS/GII_PRODUCT/plot_kIndex.py
+set python_script=D:/SATMET_PRODUCTS/GII_PRODUCT/plot_GII_PRODUCTS.py
 
 :LOOP
 :: Activate Conda environment
