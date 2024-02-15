@@ -19,8 +19,6 @@ def plot_precipitable_water(df, outputPath, productKey, norm=None,cmap='Spectral
     fig = plt.figure(figsize=(16, 16))
     ax = plt.axes(projection=ccrs.Mercator())
     ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
-    # ax.add_feature(cfeature.LAND,  facecolor='white', alpha=0.1)
-    # ax.add_feature(cfeature.OCEAN, facecolor='white', alpha=0.1)
 
     sc = ax.scatter(filtered_df['#1#longitude'], filtered_df['#1#latitude'], c=filtered_df[productKey], norm=norm, cmap=cmap, transform=ccrs.PlateCarree(), s=1)
 

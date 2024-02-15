@@ -1,0 +1,76 @@
+# 2024-02-15 __ 05-30
+# productKey: #1#kIndex, Min: -30, Max: 2147483647
+# productKey: #1#koIndex, Min: -27, Max: 2147483647
+# productKey: #1#maximumBuoyancy, Min: -29, Max: 2147483647
+# productKey: #1#parcelLiftedIndexTo500Hpa, Min: -20, Max: 2147483647
+# productKey: #1#precipitableWater, Min: 0, Max: 2147483647
+# productKey: #2#precipitableWater, Min: 0.02, Max: 6.79
+# productKey: #3#precipitableWater, Min: 0.0, Max: 36.46
+# productKey: #4#precipitableWater, Min: 0.0, Max: 29.68
+# 2024-02-15 __ 02-45
+# productKey: #1#kIndex, Min: -30, Max: 2147483647
+# productKey: #1#koIndex, Min: -25, Max: 2147483647
+# productKey: #1#maximumBuoyancy, Min: -29, Max: 2147483647
+# productKey: #1#parcelLiftedIndexTo500Hpa, Min: -20, Max: 2147483647
+# productKey: #1#precipitableWater, Min: 0, Max: 2147483647
+# productKey: #2#precipitableWater, Min: 0.03, Max: 7.18
+# productKey: #3#precipitableWater, Min: 0.0, Max: 36.18
+# productKey: #4#precipitableWater, Min: 0.0, Max: 29.650000000000002
+# 2024-02-15 __ 00-00
+# productKey: #1#kIndex, Min: -30, Max: 2147483647
+# productKey: #1#koIndex, Min: -26, Max: 2147483647
+# productKey: #1#maximumBuoyancy, Min: -30, Max: 2147483647
+# productKey: #1#parcelLiftedIndexTo500Hpa, Min: -20, Max: 2147483647
+# productKey: #1#precipitableWater, Min: 0, Max: 2147483647
+# productKey: #2#precipitableWater, Min: 0.02, Max: 7.3500000000000005
+# productKey: #3#precipitableWater, Min: 0.0, Max: 35.96
+# productKey: #4#precipitableWater, Min: 0.0, Max: 29.79
+
+# ----------------------------------------------------
+
+# 2024-02-14 __ 01-00
+# productKey: #1#kIndex, Min: -30, Max: 2147483647
+# productKey: #1#koIndex, Min: -25, Max: 2147483647
+# productKey: #1#maximumBuoyancy, Min: -28, Max: 2147483647
+# productKey: #1#parcelLiftedIndexTo500Hpa, Min: -20, Max: 2147483647
+# productKey: #1#precipitableWater, Min: 0, Max: 2147483647
+# productKey: #2#precipitableWater, Min: 0.02, Max: 7.05
+# productKey: #3#precipitableWater, Min: 0.02, Max: 35.67
+# productKey: #4#precipitableWater, Min: 0.0, Max: 30.26
+# 2024-02-14 __ 09-45
+# productKey: #1#kIndex, Min: -30, Max: 2147483647
+# productKey: #1#koIndex, Min: -26, Max: 2147483647
+# productKey: #1#maximumBuoyancy, Min: -18, Max: 2147483647
+# productKey: #1#parcelLiftedIndexTo500Hpa, Min: -20, Max: 2147483647
+# productKey: #1#precipitableWater, Min: 0, Max: 2147483647
+# productKey: #2#precipitableWater, Min: 0.04, Max: 7.2700000000000005
+# productKey: #3#precipitableWater, Min: 0.11, Max: 35.13
+# productKey: #4#precipitableWater, Min: 0.0, Max: 30.72
+# 2024-02-14 __ 12-30
+# productKey: #1#kIndex, Min: -30, Max: 2147483647
+# productKey: #1#koIndex, Min: -28.0, Max: 2147483647.0
+# productKey: #1#maximumBuoyancy, Min: -22, Max: 2147483647
+# productKey: #1#parcelLiftedIndexTo500Hpa, Min: -20, Max: 2147483647
+# productKey: #1#precipitableWater, Min: 0, Max: 2147483647
+# productKey: #2#precipitableWater, Min: 0.03, Max: 7.15
+# productKey: #3#precipitableWater, Min: 0.01, Max: 35.54
+# productKey: #4#precipitableWater, Min: 0.0, Max: 29.92
+# 2024-02-14 __ 19-45
+# productKey: #1#kIndex, Min: -30, Max: 2147483647
+# productKey: #1#koIndex, Min: -26, Max: 2147483647
+# productKey: #1#maximumBuoyancy, Min: -25, Max: 2147483647
+# productKey: #1#parcelLiftedIndexTo500Hpa, Min: -20, Max: 2147483647
+# productKey: #1#precipitableWater, Min: 0, Max: 2147483647
+# productKey: #2#precipitableWater, Min: 0.02, Max: 7.17
+# productKey: #3#precipitableWater, Min: 0.01, Max: 35.27
+# productKey: #4#precipitableWater, Min: 0.0, Max: 30.22
+# 2024-02-14 __ 23-30
+# productKey: #1#kIndex, Min: -30, Max: 2147483647
+# productKey: #1#koIndex, Min: -25, Max: 2147483647
+# productKey: #1#maximumBuoyancy, Min: -27, Max: 2147483647
+# productKey: #1#parcelLiftedIndexTo500Hpa, Min: -20, Max: 2147483647
+# productKey: #1#precipitableWater, Min: 0, Max: 2147483647
+# productKey: #2#precipitableWater, Min: 0.02, Max: 6.7
+# productKey: #3#precipitableWater, Min: 0.0, Max: 35.97
+# productKey: #4#precipitableWater, Min: 0.0, Max: 29.46
+
