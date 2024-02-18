@@ -21,7 +21,7 @@ def plot_maximumBuoyancy(outputPath,df):
     fig = plt.figure(figsize=(16, 16))
     ax = plt.axes(projection=ccrs.Mercator())
     ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
-    norm = Normalize(vmin=-30, vmax=50)
+    norm = Normalize(vmin=-25, vmax=50)
 
     sc = ax.scatter(filtered_df['#1#longitude'], filtered_df['#1#latitude'], c=filtered_df[productKey], cmap=cmap, transform=ccrs.PlateCarree(), s=1, norm=norm)
 

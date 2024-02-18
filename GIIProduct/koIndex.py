@@ -10,7 +10,7 @@ def plot_koIndex(output_path, df):
     latBound = [7.22, 37.454]
     lngBound = [43.753, 102.363]
     ranges = [-16 , -8 , -4 , 0 , 10 , 20]
-    minMaxVal = [-30 , 50]
+    minMaxVal = [-25 , 50]
 
     # Filter data based on latitude and longitude range
     filtered_df = df[

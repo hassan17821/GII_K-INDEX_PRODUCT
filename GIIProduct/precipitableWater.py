@@ -30,18 +30,15 @@ def plot_totalPrecipitableWater( output_path, df):
     plot_precipitable_water(df, output_path, '#1#precipitableWater', norm=norm, cmap='Spectral_r')    
 
 def plot_precipitableWater10To500mbar( outputPath, df):
-    norm = None
-    # norm = Normalize(vmin= 0, vmax= 50)
+    norm = Normalize(vmin= 0.0, vmax= 7.0)
     plot_precipitable_water(df, outputPath, '#2#precipitableWater', norm=norm, cmap='Spectral_r')    
 
 def plot_precipitableWater500To850mbar( outputPath, df):
-    norm = None
-    # norm = Normalize(vmin= 0, vmax= 50)
+    norm = Normalize(vmin= 0, vmax= 35)
     plot_precipitable_water(df, outputPath, '#3#precipitableWater', norm=norm, cmap='Spectral_r')    
 
 def plot_precipitableWater850To1000mbar( outputPath, df):
-    norm = None
-    # norm = Normalize(vmin= 0, vmax= 50)
+    norm = Normalize(vmin= 0, vmax= 30)
     plot_precipitable_water(df, outputPath, '#4#precipitableWater', norm=norm, cmap='Spectral_r')    
 
 export = plot_totalPrecipitableWater, plot_precipitableWater10To500mbar, plot_precipitableWater500To850mbar, plot_precipitableWater850To1000mbar
