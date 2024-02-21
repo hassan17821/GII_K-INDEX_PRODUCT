@@ -35,7 +35,7 @@ def plot_upperLevelWind(outputPath ,df):
         & (df['#1#pressure'] <= minMaxVal[1])
     ]
 
-    pressure_labels = ['blue', 'green', 'red']
+    pressure_labels = ['red', 'green', 'blue']
 
     filtered_df['#1#pressureColor'] = np.select(
         [((filtered_df['#1#pressure'] >= low) & (filtered_df['#1#pressure'] <= high)) for low, high in pressure_brackets],
@@ -65,8 +65,8 @@ def plot_upperLevelWind(outputPath ,df):
 
     # ======== ADD COASTLINE AND OTHER FEATURES ======== 
     # ax.coastlines()
-    ax.add_feature(cfeature.BORDERS, linestyle=':')
-    ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
+    # ax.add_feature(cfeature.BORDERS, linestyle=':')
+    # ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
     # plt.show()
     fig.savefig(outputPath, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
@@ -99,7 +99,7 @@ def plot_lowerLevelWind(outputPath,df):
         & (df['#1#pressure'] <= minMaxVal[1])
     ]
 
-    pressure_labels = ['blue', 'green', 'red']
+    pressure_labels = ['red', 'green', 'blue']
 
     filtered_df['#1#pressureColor'] = np.select(
         [((filtered_df['#1#pressure'] >= low) & (filtered_df['#1#pressure'] <= high)) for low, high in pressure_brackets],
@@ -129,8 +129,8 @@ def plot_lowerLevelWind(outputPath,df):
 
     # ======== ADD COASTLINE AND OTHER FEATURES ======== 
     # ax.coastlines()
-    ax.add_feature(cfeature.BORDERS, linestyle=':')
-    ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
+    # ax.add_feature(cfeature.BORDERS, linestyle=':')
+    # ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
     # plt.show()
     fig.savefig(outputPath, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
