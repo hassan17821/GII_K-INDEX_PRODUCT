@@ -10,11 +10,11 @@ if len(sys.argv) == 5:
     date_arg, time_arg, input_path_arg, output_path_arg = sys.argv[1:]
     output_data = [
         {
-            'output_path': f'{output_path_arg}/LRIT_GII_upperLevelWind [{time_arg}].webp',
+            'output_path': f'{output_path_arg}/LRIT_AMV_upperLevelWind [{time_arg}].webp',
             'function': plot_upperLevelWind
         },
         {
-            'output_path': f'{output_path_arg}/LRIT_GII_lowerLevelWind [{time_arg}].webp',
+            'output_path': f'{output_path_arg}/LRIT_AMV_lowerLevelWind [{time_arg}].webp',
             'function': plot_lowerLevelWind
         }
     ]

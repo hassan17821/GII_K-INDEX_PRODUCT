@@ -6,7 +6,7 @@ import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 from matplotlib.colors import Normalize, ListedColormap
 
-def plot_upperLevelWind(df, outputPath, productKey, norm=None,cmap='Spectral_r'):
+def plot_upperLevelWind(outputPath ,df):
     latBound = [7.22, 37.454]
     lngBound = [43.753, 102.363]
 
@@ -50,6 +50,7 @@ def plot_upperLevelWind(df, outputPath, productKey, norm=None,cmap='Spectral_r')
     # print(filtered_df['#1#windSpeed'])
     fig = plt.figure(figsize=(16, 16))
     ax = plt.axes(projection=ccrs.Mercator())
+    ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
 
     # ======== PRESSURE BAR COLORS ======== 
     # cmap = ListedColormap(pressure_labels)
@@ -64,12 +65,12 @@ def plot_upperLevelWind(df, outputPath, productKey, norm=None,cmap='Spectral_r')
 
     # ======== ADD COASTLINE AND OTHER FEATURES ======== 
     # ax.coastlines()
-    # ax.add_feature(cfeature.BORDERS, linestyle=':')
-    # ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
+    ax.add_feature(cfeature.BORDERS, linestyle=':')
+    ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
     # plt.show()
     fig.savefig(outputPath, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
-def plot_lowerLevelWind(df, outputPath, productKey, norm=None,cmap='Spectral_r'):
+def plot_lowerLevelWind(outputPath,df):
     latBound = [7.22, 37.454]
     lngBound = [43.753, 102.363]
 
@@ -113,6 +114,7 @@ def plot_lowerLevelWind(df, outputPath, productKey, norm=None,cmap='Spectral_r')
     # print(filtered_df['#1#windSpeed'])
     fig = plt.figure(figsize=(16, 16))
     ax = plt.axes(projection=ccrs.Mercator())
+    ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
 
     # ======== PRESSURE BAR COLORS ======== 
     # cmap = ListedColormap(pressure_labels)
@@ -127,8 +129,8 @@ def plot_lowerLevelWind(df, outputPath, productKey, norm=None,cmap='Spectral_r')
 
     # ======== ADD COASTLINE AND OTHER FEATURES ======== 
     # ax.coastlines()
-    # ax.add_feature(cfeature.BORDERS, linestyle=':')
-    # ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
+    ax.add_feature(cfeature.BORDERS, linestyle=':')
+    ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
     # plt.show()
     fig.savefig(outputPath, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
