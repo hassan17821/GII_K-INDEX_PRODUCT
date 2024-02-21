@@ -42,7 +42,7 @@ def plot_upperLevelWind(df, outputPath, productKey, norm=None,cmap='Spectral_r')
         pressure_labels, default='black'
     )
 
-    # Correct the wind vector calculation
+    # ======== WIND VECTOR CALCULATION IF NECESSARY ======== 
     # windu = -df['#1#windSpeed'] * np.sin(np.radians(df['#1#windDirection']))
     # windv = -df['#1#windSpeed'] * np.cos(np.radians(df['#1#windDirection']))
 
@@ -51,6 +51,7 @@ def plot_upperLevelWind(df, outputPath, productKey, norm=None,cmap='Spectral_r')
     fig = plt.figure(figsize=(16, 16))
     ax = plt.axes(projection=ccrs.Mercator())
 
+    # ======== PRESSURE BAR COLORS ======== 
     # cmap = ListedColormap(pressure_labels)
     # norm = plt.Normalize(minMaxVal[0], minMaxVal[1])
     # sm = ScalarMappable(cmap=cmap, norm=norm)
@@ -60,7 +61,8 @@ def plot_upperLevelWind(df, outputPath, productKey, norm=None,cmap='Spectral_r')
 
     # Plot wind barbs with different colors based on pressure brackets
     barbs = ax.barbs(filtered_df['#1#longitude'], filtered_df['#1#latitude'], filtered_df['#1#u'] ,filtered_df['#1#v'], color=filtered_df['#1#pressureColor'], pivot='middle', transform=ccrs.PlateCarree())
-    # Add coastlines and other features to the map
+
+    # ======== ADD COASTLINE AND OTHER FEATURES ======== 
     # ax.coastlines()
     # ax.add_feature(cfeature.BORDERS, linestyle=':')
     # ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
