@@ -8,6 +8,8 @@ from koIndex import plot_koIndex
 from parcelLiftedIndexTo500Hpa import plot_parcelLiftedIndexTo500Hpa
 from precipitableWater import plot_totalPrecipitableWater, plot_precipitableWater10To500mbar, plot_precipitableWater500To850mbar, plot_precipitableWater850To1000mbar
 from maximumBuoyancy import plot_maximumBuoyancy
+from wind import plot_upperLevelWind, plot_lowerLevelWind
+
 if len(sys.argv) == 5:
     # Extract command-line arguments
     date_arg, time_arg, input_path_arg, output_path_arg = sys.argv[1:]
@@ -43,6 +45,14 @@ if len(sys.argv) == 5:
         {
             'output_path': f'{output_path_arg}/LRIT_GII_maximumBuoyancy [{time_arg}].webp',
             'function': plot_maximumBuoyancy
+        },
+        {
+            'output_path': f'{output_path_arg}/LRIT_GII_upperLevelWind [{time_arg}].webp',
+            'function': plot_upperLevelWind
+        },
+        {
+            'output_path': f'{output_path_arg}/LRIT_GII_lowerLevelWind [{time_arg}].webp',
+            'function': plot_lowerLevelWind
         }
     ]
 
