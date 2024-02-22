@@ -46,6 +46,7 @@ def plot_parcelLiftedIndexTo500Hpa(output_path, df):
     sc = ax.scatter(filtered_df['#1#longitude'], filtered_df['#1#latitude'], c=filtered_df[productKey], cmap=combined_cmap, transform=ccrs.PlateCarree(), s=1, norm=norm)
 
     # Save the figure
-    fig.savefig(output_path, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
+    fig.patch.set_alpha(0)
+    fig.savefig(output_path, transparent=True, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
 export = plot_parcelLiftedIndexTo500Hpa

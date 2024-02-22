@@ -22,7 +22,8 @@ def plot_precipitable_water(df, outputPath, productKey, norm=None,cmap='Spectral
 
     sc = ax.scatter(filtered_df['#1#longitude'], filtered_df['#1#latitude'], c=filtered_df[productKey], norm=norm, cmap=cmap, transform=ccrs.PlateCarree(), s=1)
 
-    fig.savefig(outputPath, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
+    fig.patch.set_alpha(0)
+    fig.savefig(outputPath, transparent=True, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
 def plot_totalPrecipitableWater( output_path, df):
     ranges = [0, 5, 10, 20, 50]

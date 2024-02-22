@@ -72,6 +72,7 @@ def plot_koIndex(output_path, df):
 
     # plt.show()
     # Save the figure
-    fig.savefig(output_path, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
+    fig.patch.set_alpha(0)
+    fig.savefig(output_path, transparent=True, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
 export = plot_koIndex

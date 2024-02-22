@@ -68,7 +68,8 @@ def plot_upperLevelWind(outputPath ,df):
     # ax.add_feature(cfeature.BORDERS, linestyle=':')
     # ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
     # plt.show()
-    fig.savefig(outputPath, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
+    fig.patch.set_alpha(0)
+    fig.savefig(outputPath, transparent=True, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
 def plot_lowerLevelWind(outputPath,df):
     latBound = [7.22, 37.454]
@@ -132,6 +133,7 @@ def plot_lowerLevelWind(outputPath,df):
     # ax.add_feature(cfeature.BORDERS, linestyle=':')
     # ax.add_feature(cfeature.LAND, edgecolor='black', facecolor='lightgray')
     # plt.show()
-    fig.savefig(outputPath, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
+    fig.patch.set_alpha(0)
+    fig.savefig(outputPath, transparent=True, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
 export = plot_upperLevelWind, plot_lowerLevelWind

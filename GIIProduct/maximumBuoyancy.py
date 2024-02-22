@@ -25,6 +25,7 @@ def plot_maximumBuoyancy(outputPath,df):
 
     sc = ax.scatter(filtered_df['#1#longitude'], filtered_df['#1#latitude'], c=filtered_df[productKey], cmap=cmap, transform=ccrs.PlateCarree(), s=1, norm=norm)
 
-    fig.savefig(outputPath, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
+    fig.patch.set_alpha(0)
+    fig.savefig(outputPath, transparent=True, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
 
 export = plot_maximumBuoyancy
