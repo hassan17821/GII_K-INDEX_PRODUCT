@@ -1,3 +1,4 @@
+# For multiple Color transparent
 import cv2
 import numpy as np
 from google.colab.patches import cv2_imshow
@@ -9,17 +10,13 @@ from google.colab import drive
 # Image file paths
 image_path = '/content/drive/MyDrive/329.jpg'
 output_path = '329.webp'
-target_color = (212, 230, 230)
-target_color1 = (255, 255, 255)
 
-# Define the target ocean color (BGR) with 40% tolerance range
-tolerance = 0.15  # Adjust this value for desired tolerance (0 to 1)
-target_color_lower = np.array([target_color[0] * (1 - tolerance), target_color[1] * (1 - tolerance), target_color[2] * (1 - tolerance)])
-target_color_upper = np.array([target_color[0] * (1 + tolerance), target_color[1] * (1 + tolerance), target_color[2] * (1 + tolerance)])
-
-tolerance1 = 0.05
-target_color1_lower = np.array([target_color1[0] * (1 - tolerance1), target_color1[1] * (1 - tolerance1), target_color1[2] * (1 - tolerance1)])
-target_color1_upper = np.array([target_color1[0] * (1 + tolerance1), target_color1[1] * (1 + tolerance1), target_color1[2] * (1 + tolerance1)])
+# Define target colors as an array of objects with tolerance
+target_colors = [
+    {'color': (212, 230, 230), 'tolerance': 0.15},
+    {'color': (255, 255, 255), 'tolerance': 0.05},
+    # ... You can add more colors here
+]
 
 # Load the image
 image = cv2.imread(image_path)
@@ -30,27 +27,28 @@ if image is not None:
   # Convert the image to BGR (in case it's loaded in a different format)
   image = cv2.cvtColor(image, cv2.COLOR_BGRA2BGR)
 
-  # Create a mask to select the ocean color with tolerance
-  mask1 = cv2.inRange(image, target_color_lower, target_color_upper)
-  mask2 = cv2.inRange(image, target_color1_lower, target_color1_upper)
+  # Create masks for each target color
+  masks = []
+  for color_obj in target_colors:
+    target_color = color_obj['color']
+    tolerance = color_obj['tolerance']
+    target_color_lower = np.array([target_color[0] * (1 - tolerance), target_color[1] * (1 - tolerance), target_color[2] * (1 - tolerance)])
+    target_color_upper = np.array([target_color[0] * (1 + tolerance), target_color[1] * (1 + tolerance), target_color[2] * (1 + tolerance)])
+    mask = cv2.inRange(image, target_color_lower, target_color_upper)
+    masks.append(mask)
+
+  # Combine masks (union)
+  combined_mask = masks[0]  # Start with the first mask
+  for mask in masks[1:]:    # Combine remaining masks with bitwise OR
+    combined_mask = cv2.bitwise_or(combined_mask, mask)
 
   print('Original ')
   cv2_imshow(image)
-  print('Mask1 ')
-  cv2_imshow(mask1)
-  print('Mask2 ')
-  cv2_imshow(mask2)
-
-  # Combine masks (union)
-  combined_mask = cv2.bitwise_or(mask1, mask2)
-
-  print('combined_mask ')
+  print('Combined Mask ')
   cv2_imshow(combined_mask)
+
   # Invert the mask
   combined_mask = cv2.bitwise_not(combined_mask)
-
-  # Invert the mask for transparent replacement
-  mask = cv2.bitwise_not(mask)
 
   # Make the masked region transparent
   transparent_image = cv2.cvtColor(image, cv2.COLOR_BGR2BGRA)
