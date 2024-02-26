@@ -15,7 +15,6 @@ output_path = '329.webp'
 target_colors = [
     {'color': (212, 230, 230), 'tolerance': 0.15},
     {'color': (255, 255, 255), 'tolerance': 0.05},
-    # ... You can add more colors here
 ]
 
 # Load the image
@@ -35,6 +34,8 @@ if image is not None:
     target_color_lower = np.array([target_color[0] * (1 - tolerance), target_color[1] * (1 - tolerance), target_color[2] * (1 - tolerance)])
     target_color_upper = np.array([target_color[0] * (1 + tolerance), target_color[1] * (1 + tolerance), target_color[2] * (1 + tolerance)])
     mask = cv2.inRange(image, target_color_lower, target_color_upper)
+    print('Mask for color ',target_color)
+    cv2_imshow(mask)
     masks.append(mask)
 
   # Combine masks (union)
