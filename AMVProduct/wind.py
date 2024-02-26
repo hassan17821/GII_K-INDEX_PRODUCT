@@ -33,7 +33,7 @@ def plot_upperLevelWind(outputPath ,df):
         & (df['#1#longitude'] <= lngBound[1])
         & (df['#1#pressure'] >= minMaxVal[0])
         & (df['#1#pressure'] <= minMaxVal[1])
-    ]
+    ].copy() 
 
     pressure_labels = ['red', 'green', 'blue']
 
@@ -98,7 +98,7 @@ def plot_lowerLevelWind(outputPath,df):
         & (df['#1#longitude'] <= lngBound[1])
         & (df['#1#pressure'] >= minMaxVal[0])
         & (df['#1#pressure'] <= minMaxVal[1])
-    ]
+    ].copy() 
 
     pressure_labels = ['red', 'green', 'blue']
 
