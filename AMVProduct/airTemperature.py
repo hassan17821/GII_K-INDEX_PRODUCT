@@ -31,7 +31,7 @@ def plot_airTemperature(outputPath, df):
     ax.set_extent([lngBound[0], lngBound[1], latBound[0], latBound[1]], crs=ccrs.PlateCarree())
     norm = Normalize(vmin=200, vmax=300)
 
-    sc = ax.scatter(filtered_df['#1#longitude'], filtered_df['#1#latitude'],lw=2, c=filtered_df[productKey], norm=norm, cmap=cmap, transform=ccrs.PlateCarree(), s=1)
+    sc = ax.scatter(filtered_df['#1#longitude'], filtered_df['#1#latitude'],lw=1.5, c=filtered_df[productKey], norm=norm, cmap=cmap, transform=ccrs.PlateCarree(), s=1)
     # cbar = plt.colorbar(sc, orientation='vertical')
     # cbar.set_label(productLabel)
     # cbar.ax.set_position([cbar.ax.get_position().x0, cbar.ax.get_position().y0, cbar.ax.get_position().width, 0.55])
