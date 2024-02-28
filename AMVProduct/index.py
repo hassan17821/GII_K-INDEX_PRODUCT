@@ -4,6 +4,7 @@ import pdbufr
 
 # Import functions from modules
 from wind import plot_upperLevelWind, plot_lowerLevelWind
+from airTemperature import plot_airTemperature
 
 if len(sys.argv) == 5:
     # Extract command-line arguments
@@ -16,6 +17,10 @@ if len(sys.argv) == 5:
         {
             'output_path': f'{output_path_arg}/LRIT_AMV_lowerLevelWind [{time_arg}].webp',
             'function': plot_lowerLevelWind
+        },
+        {
+            'output_path': f'{output_path_arg}/LRIT_AMV_airTemperature [{time_arg}].webp',
+            'function': plot_airTemperature
         }
     ]
 
