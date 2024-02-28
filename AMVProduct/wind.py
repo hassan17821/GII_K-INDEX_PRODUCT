@@ -61,8 +61,15 @@ def plot_upperLevelWind(outputPath ,df):
 
 
     # Plot wind barbs with different colors based on pressure brackets
-    barbs = ax.barbs(filtered_df['#1#longitude'], filtered_df['#1#latitude'], filtered_df['#1#u'] ,filtered_df['#1#v'], color=filtered_df['#1#pressureColor'], pivot='middle', transform=ccrs.PlateCarree())
-
+    # barbs = ax.barbs(filtered_df['#1#longitude'], filtered_df['#1#latitude'], filtered_df['#1#u'] ,filtered_df['#1#v'], color=filtered_df['#1#pressureColor'], pivot='middle', transform=ccrs.PlateCarree())
+    barbs = ax.barbs(filtered_df['#1#longitude'],
+                    filtered_df['#1#latitude'],
+                    filtered_df['#1#u'],
+                    filtered_df['#1#v'],
+                    color=filtered_df['#1#pressureColor'],
+                    transform=ccrs.PlateCarree(),
+                    length=5,
+                    linewidth=0.75)
     # ======== ADD COASTLINE AND OTHER FEATURES ======== 
     # ax.coastlines()
     # ax.add_feature(cfeature.BORDERS, linestyle=':')
@@ -126,8 +133,15 @@ def plot_lowerLevelWind(outputPath,df):
 
 
     # Plot wind barbs with different colors based on pressure brackets
-    barbs = ax.barbs(filtered_df['#1#longitude'], filtered_df['#1#latitude'], filtered_df['#1#u'] ,filtered_df['#1#v'], color=filtered_df['#1#pressureColor'], pivot='middle', transform=ccrs.PlateCarree())
-
+    # barbs = ax.barbs(filtered_df['#1#longitude'], filtered_df['#1#latitude'], filtered_df['#1#u'] ,filtered_df['#1#v'], color=filtered_df['#1#pressureColor'], pivot='middle', transform=ccrs.PlateCarree())
+    barbs = ax.barbs(filtered_df['#1#longitude'],
+                    filtered_df['#1#latitude'],
+                    filtered_df['#1#u'],
+                    filtered_df['#1#v'],
+                    color=filtered_df['#1#pressureColor'],
+                    transform=ccrs.PlateCarree(),
+                    length=5,
+                    linewidth=0.75)
     # ======== ADD COASTLINE AND OTHER FEATURES ======== 
     # ax.coastlines()
     # ax.add_feature(cfeature.BORDERS, linestyle=':')
