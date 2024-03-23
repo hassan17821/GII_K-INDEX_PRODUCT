@@ -1,1 +1,14 @@
-http://rsapp.nsmc.org.cn/geofy/?i=13&isPlay=true&speed=5&sat=fy-4a&pro=84&type=prj_gll&band=15&overlay=&x=100&y=31&z=0&area=1&ll=0&county=1&duration=120&interval=1&c=false&cp=0.5&st=&et=&ac=&hide=1&s=1
+http://rsapp.nsmc.org.cn/geofy/?i=13&isPlay=true&speed=5&sat=fy-4a&pro=84&type=prj_gll&band=15&overlay=&x=100&y=31&z=0&area=1&ll=0&county=1&duration=120&interval=1&c=false&cp=0.5&st=&et=&ac=&hide=1&s=1 
+http://rsapp.nsmc.org.cn/swapQuery/public/tileServer/getTile/fy-4a/full_disk/AVP_91/20240303220000/png/1/0/1.png
+http://rsapp.nsmc.org.cn/FY4A/color_bar/fy-4a/color_bar_1670_clp_en.png
+
+http://rsapp.nsmc.org.cn/swapQuery/public/tileServer/getTile/fy-4a/prj_gll/CLM/20240303220000/png/2/0/3.png
+
+https://www.nsmc.org.cn/service/en/emergency/index.html
+
+
+http://rsapp.nsmc.org.cn/swapQuery/public/tileServer/getTile/fy-4a/prj_gll/VolcanicAsh/20240303070000/jpg/2/0/0.png
+
+http://rsapp.nsmc.org.cn/swapQuery/public/tileServer/getTile/fy-4a/prj_gll/NatureColor/20240303121500/jpg/5/0/0.png
+
+https://fy4.nsmc.org.cn/nsmc/v1/nsmc/image/wms/compose?layers=FY3D_MERSI&datetime=20230213&request=GetMap&bbox=43.753,7.22,102.363,37.454&width=1000&height=800&version=1.0.0&format=jpg
