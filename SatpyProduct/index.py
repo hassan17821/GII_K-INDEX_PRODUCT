@@ -5,9 +5,10 @@ from satpy import find_files_and_readers
 from datetime import datetime
 import glob
 import warnings
+import os
 
 # Date format in YYYYMMDDhhmm
-data_dir = "//EUMETCAST-INGES/Data/XRIT/Compressed"
+data_dir = "T:/HRIT/2023-12-14/00-00"
 
 # List all files in the directory
 files = os.listdir(data_dir)
