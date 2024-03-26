@@ -2,3 +2,6 @@ https://www.kaggle.com/code/martinraspaud/satpy-half-day-tutorial-with-msg-data
 https://www.kaggle.com/code/martinraspaud/quickstart-with-msg-seviri/input
 https://nbviewer.org/github/pytroll/pytroll-examples/blob/main/satpy/hrit_msg_tutorial.ipynb
 https://satpy.readthedocs.io/en/stable/resample.html
+
+
+https://stackoverflow.com/questions/76523483/resample-and-plot-satpy-scene-data-from-geos-to-mercator-using-pyresample
