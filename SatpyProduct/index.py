@@ -3,19 +3,20 @@ import sys
 
 # Import functions from modules
 from fog import plot_fog
+from all_bands import plot_all_bands
 
 if len(sys.argv) == 5:
     # Extract command-line arguments
     date_arg, time_arg, input_path_arg, output_path_arg = sys.argv[1:]
     output_data = [
-        {
-            'output_path': f'{output_path_arg}/fog [{time_arg}].webp',
-            'function': plot_fog
-        },
         # {
-        #     'output_path': f'{output_path_arg}/night_fog [{time_arg}].webp',
-        #     'function': plot_nightfog
-        # }
+        #     'output_path': f'{output_path_arg}/fog [{time_arg}].webp',
+        #     'function': plot_fog
+        # },
+        {
+            'output_path': f'{output_path_arg}/**band_name** [{time_arg}].webp',
+            'function': plot_all_bands
+        }
     ]
 
     print(input_path_arg)
@@ -28,7 +29,7 @@ if len(sys.argv) == 5:
             function = item['function']
             if not os.path.exists(output_path):
                 print(f"Processing {function.__name__} {output_path}")
-                function(input_path_arg, output_path, time_arg)
+                function(input_path_arg, output_path, date_arg, time_arg)
 
 else:
     print("Some required arguments are missing.")

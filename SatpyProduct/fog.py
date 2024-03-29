@@ -81,7 +81,7 @@ def plot_nightfog(data_dir,output_path):
     print('Saving Night Fog')
     scn_resampled.save_dataset('night_fog', output_path)
 
-def plot_fog(data_dir,output_path,time_arg):
+def plot_fog(data_dir, output_path, date_arg, time_arg):
     if is_daytime(time_arg):
         plot_dayfog(data_dir,output_path)
     else:
