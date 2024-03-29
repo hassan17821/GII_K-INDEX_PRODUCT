@@ -1,17 +1,16 @@
 import os
 import sys
-import pdbufr
 
 # Import functions from modules
-from fog import plot_dayfog , plot_nightfog
+from fog import plot_fog
 
 if len(sys.argv) == 5:
     # Extract command-line arguments
     date_arg, time_arg, input_path_arg, output_path_arg = sys.argv[1:]
     output_data = [
         {
-            'output_path': f'{output_path_arg}/day_fog [{time_arg}].webp',
-            'function': plot_dayfog
+            'output_path': f'{output_path_arg}/fog [{time_arg}].webp',
+            'function': plot_fog
         },
         # {
         #     'output_path': f'{output_path_arg}/night_fog [{time_arg}].webp',
@@ -29,7 +28,7 @@ if len(sys.argv) == 5:
             function = item['function']
             if not os.path.exists(output_path):
                 print(f"Processing {function.__name__} {output_path}")
-                function(input_path_arg, output_path)
+                function(input_path_arg, output_path, time_arg)
 
 else:
     print("Some required arguments are missing.")

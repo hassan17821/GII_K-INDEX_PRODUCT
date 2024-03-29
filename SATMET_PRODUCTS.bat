@@ -10,9 +10,9 @@ set CONDA_ENV=base
 :: Set the Python script file path
 set python_script=D:/SATMET_PRODUCTS/GII_PRODUCT/SatpyProduct/index.py
 
-:LOOP
-:: Activate Conda environment
-call "%CONDA_PATH%\Scripts\activate.bat" %CONDA_ENV%
+@REM :LOOP
+@REM :: Activate Conda environment
+@REM call "%CONDA_PATH%\Scripts\activate.bat" %CONDA_ENV%
 
 :: Set the current date and time
 for /f "delims=" %%b in ('"powershell [DateTime]::Now.AddHours(-5).ToString('HH-mm')"') do set mytime=%%b
@@ -29,7 +29,6 @@ for /d %%D in ("Z:/Data/XRIT/Archive/MSG2_IODC/%mydate%/*") do (
         set "hhmm=%%X-%%Y"
         set "source_drive=Z:/Data/XRIT/Archive/MSG2_IODC/%mydate%/!hhmm!"
         if exist "!source_drive!" (
-           :: start "" cmd /c python %python_script% "!date!" "!hhmm!" "!source_drive!" "!destination_folder!"
             python %python_script% "!date!" "!hhmm!" "!source_drive!" "!destination_folder!"
         )
     )
