@@ -1,23 +1,36 @@
-# https://nbviewer.org/github/pytroll/pytroll-examples/blob/main/satpy/hrit_msg_tutorial.ipynb
-from satpy.scene import Scene
-from satpy.resample import get_area_def
-from satpy import find_files_and_readers
-from datetime import datetime
-import glob
-import warnings
 import os
+import sys
+import pdbufr
 
-# Date format in YYYYMMDDhhmm
-data_dir = "T:/HRIT/2023-12-14/00-00"
+# Import functions from modules
+from fog import plot_dayfog , plot_nightfog
 
-# List all files in the directory
-files = os.listdir(data_dir)
-fnames = [os.path.join(data_dir, f) for f in files]
+if len(sys.argv) == 5:
+    # Extract command-line arguments
+    date_arg, time_arg, input_path_arg, output_path_arg = sys.argv[1:]
+    output_data = [
+        {
+            'output_path': f'{output_path_arg}/day_fog [{time_arg}].webp',
+            'function': plot_dayfog
+        },
+        {
+            'output_path': f'{output_path_arg}/night_fog [{time_arg}].webp',
+            'function': plot_nightfog
+        }
+    ]
 
-# fnames = glob.glob('/path/to/data/H*202009060000*__')
-scn = Scene(reader='seviri_l1b_hrit', filenames=fnames)
-scn.available_composite_ids()
+    print(input_path_arg)
+    # Check if output paths exist
+    if all(os.path.exists(item['output_path']) for item in output_data):
+        print("All output paths already exist")
+    else:
+        df = pdbufr.read_bufr(input_path_arg, columns="data",flat=True)
+        for item in output_data:
+            output_path = item['output_path']
+            function = item['function']
+            if not os.path.exists(output_path):
+                print(f"Processing {function.__name__} {output_path}")
+                function(input_path_arg, output_path, df)
 
-composite = 'airmass'
-scn.load([composite])
-scn.show(composite)
+else:
+    print("Some required arguments are missing.")
