@@ -15,6 +15,8 @@ from datetime import datetime
 
 
 def is_daytime(time_arg):
+    ### Checks if the given time is between daytime hours (6AM to 6PM)
+
     # Assuming time_arg is in the format HH-MM
     hour, minute = map(int, time_arg.split('-'))
     time = datetime.now().replace(hour=hour, minute=minute)
