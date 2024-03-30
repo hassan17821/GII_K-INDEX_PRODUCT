@@ -7,6 +7,9 @@ from all_bands import plot_all_bands
 from all_products import plot_products
 from satpy.utils import debug_off,debug_on
 debug_off()
+import warnings
+warnings.filterwarnings('ignore')
+
 # debug_on()
 if len(sys.argv) == 5:
     # Extract command-line arguments
@@ -32,7 +35,6 @@ if len(sys.argv) == 5:
         output_path = item['output_path']
         function = item['function']
         if not os.path.exists(output_path):
-            print(f"Processing {function.__name__} {output_path}")
             function(input_path_arg, output_path, date_arg, time_arg)
 
 else:
