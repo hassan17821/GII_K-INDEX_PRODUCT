@@ -1,17 +1,4 @@
-
-    product_ids=[
-    'HRV',
-    'IR_016',
-    'IR_039',
-    'IR_087',
-    'IR_097',
-    'IR_108',
-    'IR_120',
-    'IR_134',
-    'VIS006',
-    'VIS008',
-    'WV_062',
-    'WV_073',
+day_products = [
     'airmass',
     'ash',
     'cloud_phase_distinction',
@@ -43,11 +30,11 @@
     'natural_enh_with_night_ir',
     'natural_enh_with_night_ir_hires',
     'natural_with_night_fog',
-    'night_fog',
-    'night_ir_alpha',
-    'night_ir_with_background',
-    'night_ir_with_background_hires',
-    'night_microphysics',
+    # 'night_fog',
+    # 'night_ir_alpha',
+    # 'night_ir_with_background',
+    # 'night_ir_with_background_hires',
+    # 'night_microphysics',
     'overview',
     'overview_raw',
     'realistic_colors',
@@ -55,4 +42,27 @@
     'rocket_plume_night',
     'snow',
     'vis_sharpened_ir'
-    ]
+]
+
+night_products = [
+    'night_fog',
+    'night_ir_alpha',
+    'night_ir_with_background',
+    'night_ir_with_background_hires',
+    'night_microphysics',
+]
+
+all_bands=[
+    'HRV',
+    'IR_016',
+    'IR_039',
+    'IR_087',
+    'IR_097',
+    'IR_108',
+    'IR_120',
+    'IR_134',
+    'VIS006',
+    'VIS008',
+    'WV_062',
+    'WV_073',
+]
