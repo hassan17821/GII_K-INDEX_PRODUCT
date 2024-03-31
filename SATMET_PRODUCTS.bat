@@ -1,6 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
+:START_POINT
 :: Set the path to your Conda installation
 set CONDA_PATH=C:\Softwares\miniconda
 
@@ -29,17 +30,26 @@ for /d %%D in ("Z:/Data/XRIT/Archive/MSG2_IODC/%mydate%/*") do (
 )
 
 :: Loop over the source drive paths in reverse order
+set "temp_count=0"
+set "max_bounds=10"
 for /l %%i in (%count%,-1,0) do (
+    echo "i = %%i"
     set "source_drive=!source_drive[%%i]!"
     set "hhmm=!hhmm[%%i]!"
     if exist "!source_drive!" (
         python %python_script% "!date!" "!hhmm!" "!source_drive!" "!destination_folder!"
+        set /a temp_count+=1
+        if !temp_count! gtr !max_bounds! (
+            goto :break_loop
+        )
     )
 )
+:break_loop
+echo "Loop terminated because temp count = %temp_count%." 
 
 :: Deactivate Conda environment
 :: call "%CONDA_PATH%\Scripts\deactivate.bat"
 
 :: Wait for 5 minutes before the next iteration
-timeout /t 300 /nobreak
-goto :EOF
+timeout /t 20 /nobreak
+goto :START_POINT

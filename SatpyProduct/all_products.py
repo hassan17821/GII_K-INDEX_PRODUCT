@@ -28,8 +28,8 @@ def plot_products(data_dir, output_path, date_arg, time_arg, fnames):
     #     plot_product(data_dir,output_path,day_products)
     # else:
     #     plot_product(data_dir,output_path,night_products)
-    plot_product(data_dir, output_path, day_products,fnames)
-    plot_product(data_dir,output_path, night_products,fnames)
+    # plot_product(data_dir, output_path, day_products,fnames)
+    # plot_product(data_dir,output_path, night_products,fnames)
     plot_product(data_dir,output_path, all_bands,fnames)
 
 export = plot_products
