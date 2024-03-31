@@ -24,7 +24,6 @@ if len(sys.argv) == 5:
         raise ValueError("Insufficient number of files in the directory. Expected at least 140 files.")
     else:
         output_path = f'{output_path_arg}/**placeholder_name** [{time_arg}].webp'
-        print("output_path :: ", output_path)
         plot_products(input_path_arg, output_path, date_arg, time_arg, fnames)
 
 else:
