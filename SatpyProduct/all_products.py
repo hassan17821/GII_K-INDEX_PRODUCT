@@ -12,16 +12,24 @@ from satpy.utils import debug_on
 from satpy.enhancements import create_colormap
 from satpy.enhancements import palettize
 from datetime import datetime
-from utils import plot_msg,is_daytime
-from constants import day_products, night_products, all_bands
+from utils import plot_msg,is_time_present
+from constants import day_products, night_products, all_bands,products
 
-def plot_product(data_dir, output_path, product_ids,fnames):
-    for product_id in product_ids:
-        _output_path = output_path.replace('**placeholder_name**', product_id);
+def plot_product(data_dir,output_path, product_ids,fnames,time_arg):
+    for product in product_ids:
+        productKey = product['product_key']
+        productTitle = product['product_title']
+        productType = product['product_type']
+        validTimeArgs = product['valid_time_args']
+        isTimeValid = is_time_present(time_arg, validTimeArgs)
+        _output_path = output_path.replace('**placeholder_name**', productTitle);            
         if os.path.isfile(_output_path):
             print(f'File already exists: {_output_path}')
         else:
-            plot_msg(data_dir, _output_path, product_id,fnames)
+            if not isTimeValid:
+                print(f'Invalid Time {time_arg} for {productKey}: {_output_path}')
+                continue
+            plot_msg(data_dir, _output_path, productKey,fnames)
 
 def plot_products(data_dir, output_path, date_arg, time_arg, fnames):
     # if is_daytime(time_arg):
@@ -30,6 +38,6 @@ def plot_products(data_dir, output_path, date_arg, time_arg, fnames):
     #     plot_product(data_dir,output_path,night_products)
     # plot_product(data_dir, output_path, day_products,fnames)
     # plot_product(data_dir,output_path, night_products,fnames)
-    plot_product(data_dir,output_path, all_bands,fnames)
+    plot_product(data_dir,output_path,products,fnames,time_arg)
 
 export = plot_products

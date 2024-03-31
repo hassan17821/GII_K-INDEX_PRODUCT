@@ -53,4 +53,40 @@ def is_daytime(time_arg):
 
     return day_start <= time <= day_end
 
-export = plot_msg,is_daytime
+def is_time_present(time_to_check, time_ranges):
+    for time_range in time_ranges:
+        if time_to_check == time_range:
+            return True
+    return False
+
+def generate_time_range(min_time='00:00', max_time='23:45', interval_minutes=15):
+    min_hour, min_minute = map(int, min_time.split(':'))
+    max_hour, max_minute = map(int, max_time.split(':'))
+    
+    time_args = []
+    current_hour = min_hour
+    current_minute = min_minute
+
+    while current_hour < max_hour or (current_hour == max_hour and current_minute <= max_minute):
+        time_args.append(pad_zero(current_hour) + "-" + pad_zero(current_minute))
+        current_minute += interval_minutes
+
+        if current_minute >= 60:
+            current_hour += 1
+            current_minute = 0
+
+    return time_args
+
+def generate24HourTimeRange(): 
+    return generate_time_range('00:00', '23:45', 15)
+
+def generateDayTimeRange ():
+    return generate_time_range('06:00', '18:00', 15)
+
+def generateNightTimeRange():
+    return generate_time_range('18:00', '06:00', 15)
+
+def pad_zero(num):
+    return str(num).zfill(2)
+
+export = plot_msg,is_daytime,is_time_present, generate24HourTimeRange,generateDayTimeRange,generateNightTimeRange
