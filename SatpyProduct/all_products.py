@@ -15,33 +15,19 @@ from datetime import datetime
 from utils import plot_msg,is_daytime
 from constants import day_products, night_products, all_bands
 
-def plot_day_products(data_dir, output_path):
-    for product_id in day_products:
+def plot_product(data_dir, output_path, product_ids):
+    for product_id in product_ids:
         _output_path = output_path.replace('**placeholder_name**', product_id);
         if not os.path.exists(_output_path):
             plot_msg(data_dir, _output_path, product_id)
-
-
-def plot_night_products(data_dir, output_path):
-    for product_id in night_products:
-        _output_path = output_path.replace('**placeholder_name**', product_id);
-        if not os.path.exists(_output_path):
-            plot_msg(data_dir, _output_path, product_id)
-
-def plot_all_bands(data_dir, output_path):
-    for band in all_bands:
-        _output_path = output_path.replace('**placeholder_name**', band);
-        if not os.path.exists(_output_path):
-            plot_msg(data_dir, _output_path, band)
-
 
 def plot_products(data_dir, output_path, date_arg, time_arg):
     # if is_daytime(time_arg):
-    #     plot_day_products(data_dir,output_path)
+    #     plot_product(data_dir,output_path,day_products)
     # else:
-    #     plot_night_products(data_dir,output_path)
-    plot_all_bands(data_dir, output_path)
-    plot_day_products(data_dir,output_path)
-    plot_night_products(data_dir,output_path)
+    #     plot_product(data_dir,output_path,night_products)
+    plot_product(data_dir, output_path, day_products)
+    plot_product(data_dir,output_path, night_products)
+    plot_product(data_dir,output_path, all_bands)
 
 export = plot_products
