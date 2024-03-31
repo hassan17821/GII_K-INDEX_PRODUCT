@@ -49,5 +49,15 @@ def plot_msg(data_dir, output_path, composite):
 
 # Example usage:
 # plot_msg("data_dir_path", "output_path", "composite_name")
+def is_daytime(time_arg):
+    # Assuming time_arg is in the format HH-MM
+    hour, minute = map(int, time_arg.split('-'))
+    time = datetime.now().replace(hour=hour, minute=minute)
 
-export = plot_msg
+    # Define daytime hours (you can adjust these as needed)
+    day_start = datetime.now().replace(hour=6, minute=0, second=0)
+    day_end = datetime.now().replace(hour=18, minute=0, second=0)
+
+    return day_start <= time <= day_end
+
+export = plot_msg,is_daytime
