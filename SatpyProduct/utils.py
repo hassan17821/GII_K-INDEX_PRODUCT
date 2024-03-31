@@ -31,15 +31,13 @@ def plot_msg(data_dir, output_path, composite, fnames):
                                   units='degrees')
 
         scn_resampled = scn.resample(my_area)
-        print('Saving File : ' + output_path)
+        print("Saving File : " + output_path)
         scn_resampled.save_dataset(composite, output_path)
-    except FileNotFoundError:
-        print("Error: Data directory not found.", data_dir)
     except ValueError as ve:
-        print("ValueError:", output_path)
+        print("Value Error : ", output_path)
         print(ve)
     except Exception as e:
-        print("An unexpected error occurred:",output_path)
+        print("Some Error  : ",output_path)
         print(e)
 
 # Example usage:
