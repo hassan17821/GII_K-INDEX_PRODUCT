@@ -12,10 +12,10 @@ warnings.filterwarnings('ignore')
 if len(sys.argv) == 5:
     # Extract command-line arguments
     date_arg, time_arg, input_path_arg, output_path_arg = sys.argv[1:]
-    print("date :: ", date_arg)
-    print("time :: ", time_arg)
-    print("input_path :: ", input_path_arg)
-    print("output_path :: ", output_path_arg)
+    print("DATE      :: ", date_arg)
+    print("TIME      :: ", time_arg)
+    print("READ_DIR  :: ", input_path_arg)
+    print("WRITE_DIR :: ", output_path_arg)
 
     files = os.listdir(input_path_arg)
     fnames = [os.path.join(input_path_arg, f) for f in files]
