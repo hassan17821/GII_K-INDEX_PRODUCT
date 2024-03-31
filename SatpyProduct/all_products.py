@@ -13,7 +13,7 @@ from satpy.enhancements import create_colormap
 from satpy.enhancements import palettize
 from datetime import datetime
 from utils import plot_msg,is_time_present
-from constants import day_products, night_products, all_bands,products
+from constants import products
 
 def plot_product(data_dir,output_path, product_ids,fnames,time_arg):
     for product in product_ids:
