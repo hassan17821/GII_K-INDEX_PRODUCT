@@ -34,8 +34,7 @@ if len(sys.argv) == 5:
     for item in output_data:
         output_path = item['output_path']
         function = item['function']
-        if not os.path.exists(output_path):
-            function(input_path_arg, output_path, date_arg, time_arg)
+        function(input_path_arg, output_path, date_arg, time_arg)
 
 else:
     print("Some required arguments are missing.")
