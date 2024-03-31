@@ -16,18 +16,11 @@ import os
 from pyresample import create_area_def
 from satpy import Scene
 
-def plot_msg(data_dir, output_path, composite):
+def plot_msg(data_dir, output_path, composite, fnames):
     try:
         latBound = [7.22, 37.454]
         lngBound = [43.753, 102.363]
 
-        files = os.listdir(data_dir)
-        fnames = [os.path.join(data_dir, f) for f in files]
-
-        print("FileNames Length :: ", len(fnames))
-        if len(fnames) < 140:
-            raise ValueError("Insufficient number of files in the directory. Expected at least 140 files.")
-        
         scn = Scene(reader='seviri_l1b_hrit', filenames=fnames)
         scn.load([composite])
 
@@ -38,14 +31,16 @@ def plot_msg(data_dir, output_path, composite):
                                   units='degrees')
 
         scn_resampled = scn.resample(my_area)
-        print('Saving ' + composite)
+        print('Saving File : ' + output_path)
         scn_resampled.save_dataset(composite, output_path)
     except FileNotFoundError:
-        print("Error: Data directory not found.")
+        print("Error: Data directory not found.", data_dir)
     except ValueError as ve:
-        print("ValueError:", ve)
+        print("ValueError:", output_path)
+        print(ve)
     except Exception as e:
-        print("An unexpected error occurred:", e)
+        print("An unexpected error occurred:",output_path)
+        print(e)
 
 # Example usage:
 # plot_msg("data_dir_path", "output_path", "composite_name")

@@ -15,19 +15,21 @@ from datetime import datetime
 from utils import plot_msg,is_daytime
 from constants import day_products, night_products, all_bands
 
-def plot_product(data_dir, output_path, product_ids):
+def plot_product(data_dir, output_path, product_ids,fnames):
     for product_id in product_ids:
         _output_path = output_path.replace('**placeholder_name**', product_id);
-        if not os.path.exists(_output_path):
-            plot_msg(data_dir, _output_path, product_id)
+        if os.path.isfile(_output_path):
+            print(f'File already exists: {_output_path}')
+        else:
+            plot_msg(data_dir, _output_path, product_id,fnames)
 
-def plot_products(data_dir, output_path, date_arg, time_arg):
+def plot_products(data_dir, output_path, date_arg, time_arg, fnames):
     # if is_daytime(time_arg):
     #     plot_product(data_dir,output_path,day_products)
     # else:
     #     plot_product(data_dir,output_path,night_products)
-    plot_product(data_dir, output_path, day_products)
-    plot_product(data_dir,output_path, night_products)
-    plot_product(data_dir,output_path, all_bands)
+    plot_product(data_dir, output_path, day_products,fnames)
+    plot_product(data_dir,output_path, night_products,fnames)
+    plot_product(data_dir,output_path, all_bands,fnames)
 
 export = plot_products

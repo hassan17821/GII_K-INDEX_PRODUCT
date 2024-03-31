@@ -22,8 +22,8 @@ if not exist "!destination_folder!" mkdir "!destination_folder!"
 set /a count=0
 for /d %%D in ("Z:/Data/XRIT/Archive/MSG2_IODC/%mydate%/*") do (
     for /f "tokens=1,* delims=-" %%X in ("%%~nxD") do (
-        set "hhmm=%%X-%%Y"
-        set "source_drive[!count!]=Z:/Data/XRIT/Archive/MSG2_IODC/%mydate%/!hhmm!"
+        set "hhmm[!count!]=%%X-%%Y"
+        set "source_drive[!count!]=Z:/Data/XRIT/Archive/MSG2_IODC/%mydate%/%%X-%%Y"
         set /a count+=1
     )
 )
@@ -31,6 +31,7 @@ for /d %%D in ("Z:/Data/XRIT/Archive/MSG2_IODC/%mydate%/*") do (
 :: Loop over the source drive paths in reverse order
 for /l %%i in (%count%,-1,0) do (
     set "source_drive=!source_drive[%%i]!"
+    set "hhmm=!hhmm[%%i]!"
     if exist "!source_drive!" (
         python %python_script% "!date!" "!hhmm!" "!source_drive!" "!destination_folder!"
     )
