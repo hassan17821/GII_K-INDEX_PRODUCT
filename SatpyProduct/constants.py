@@ -8,8 +8,10 @@ day_products = [
     { "product_key": "fog" ,"product_title": 'Fog', "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
     { "product_key": "hrv_fog" ,"product_title": 'HRV_Fog', "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
     { "product_key": "snow" ,"product_title": 'Snow_RGB', "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
-    { "product_key": "hrv_severe_storms" ,"product_title": 'HRV_Severe_Storms', "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
+    { "product_key": "hrv_severe_storms_masked" ,"product_title": 'HRV_Severe_Storms', "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
     { "product_key": "day_microphysics" ,"product_title": 'Microphysics', "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
+    { "product_key": "ir_sandwich" ,"product_title": 'ir_sandwich', "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
+
 ]
 
 night_products = [
