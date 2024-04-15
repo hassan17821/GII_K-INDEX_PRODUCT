@@ -24,7 +24,7 @@ if len(sys.argv) == 5:
     # exclude all .temp files in the directory
 
     print("FileNames Length :: ", len(fnames))
-    if len(fnames) < 140:
+    if len(fnames) < 100:
         raise ValueError("Insufficient number of files in the directory. Expected at least 140 files.")
     else:
         output_path = f'{output_path_arg}/**placeholder_name** [{time_arg}].webp'
