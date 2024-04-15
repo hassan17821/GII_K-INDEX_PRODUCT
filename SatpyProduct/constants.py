@@ -37,6 +37,6 @@ band_products = [
 
 ]
 
-products=  day_and_night_products + night_products + day_products
+products=  band_products + day_and_night_products + night_products + day_products;
     
 export = products
