@@ -16,7 +16,8 @@ for /f "delims=" %%b in ('"powershell [DateTime]::Now.AddHours(-5).ToString('HH-
 set time=%mytime%
 for /f "delims=" %%a in ('"powershell [DateTime]::Now.AddHours(-5).ToString('yyyy-MM-dd')"') do set mydate=%%a
 set date=%mydate%
-set "destination_folder=//eumetcast-proc/images/Archive/Weather/uploadsWG/Archive/%mydate%"
+@REM set "destination_folder=//eumetcast-proc/images/Archive/Weather/uploadsWG/Archive/%mydate%"
+set "destination_folder=D:/server1/Archive/%mydate%"
 if not exist "!destination_folder!" mkdir "!destination_folder!"
 
 :: Create an array to store source drive paths
