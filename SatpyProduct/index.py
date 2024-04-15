@@ -19,6 +19,10 @@ if len(sys.argv) == 5:
 
     files = os.listdir(input_path_arg)
     fnames = [os.path.join(input_path_arg, f) for f in files]
+    fnames = [f for f in fnames if not f.endswith('.tmp')]
+    # print("FileNames :: ", fnames)
+    # exclude all .temp files in the directory
+
     print("FileNames Length :: ", len(fnames))
     if len(fnames) < 140:
         raise ValueError("Insufficient number of files in the directory. Expected at least 140 files.")
