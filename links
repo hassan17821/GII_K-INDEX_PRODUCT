@@ -12,3 +12,13 @@ http://rsapp.nsmc.org.cn/swapQuery/public/tileServer/getTile/fy-4a/prj_gll/Volca
 http://rsapp.nsmc.org.cn/swapQuery/public/tileServer/getTile/fy-4a/prj_gll/NatureColor/20240303121500/jpg/5/0/0.png
 
 https://fy4.nsmc.org.cn/nsmc/v1/nsmc/image/wms/compose?layers=FY3D_MERSI&datetime=20230213&request=GetMap&bbox=43.753,7.22,102.363,37.454&width=1000&height=800&version=1.0.0&format=jpg
+https://classroom.eumetsat.int/local/coursecatalogue/index.php?categoryid=48
+https://classroom.eumetsat.int/pluginfile.php/45114/mod_resource/content/1/SEVIRI%20data%20visualization%20with%20Satpy.pdf
+https://resources.eumetrain.org/data/2/207/lecture_30_june.pdf
+https://resources.eumetrain.org/courses/satellite_image_interpretation.html
+https://www-cdn.eumetsat.int/files/2020-04/pdf_conf_p48_s2a_14_putsay_p.pdf
+https://dustbook.ltpy.adamplatform.eu/docs/msg_rgb.html
+
+
+https://github.com/xTriixrx/satpy-scrapy
+https://user.eumetsat.int/news-events/news/meteosat-9-to-take-over-the-iodc-service
