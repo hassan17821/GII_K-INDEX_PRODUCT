@@ -12,7 +12,7 @@ from satpy.utils import debug_on
 from satpy.enhancements import create_colormap
 from satpy.enhancements import palettize
 from datetime import datetime
-from utils import plot_msg,is_time_present
+from utils import plot_msg,is_time_present,plot_ndvi
 from constants import products
 
 def plot_product(data_dir,output_path, product_ids,fnames,time_arg):
@@ -29,7 +29,10 @@ def plot_product(data_dir,output_path, product_ids,fnames,time_arg):
             if not isTimeValid:
                 print(f'Invalid Time {time_arg} for {productKey}: {_output_path}')
                 continue
-            plot_msg(data_dir, _output_path, productKey,fnames)
+            if productKey == 'ndvi':
+                plot_ndvi(_output_path,  fnames)
+            else:
+                plot_msg(data_dir, _output_path, productKey,fnames)
 
 def plot_products(data_dir, output_path, date_arg, time_arg, fnames):
     # if is_daytime(time_arg):

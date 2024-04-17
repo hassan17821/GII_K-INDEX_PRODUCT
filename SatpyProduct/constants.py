@@ -14,6 +14,7 @@ day_products = [
     { "product_key": "day_microphysics"         ,"product_title": 'Microphysics'     , "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
     { "product_key": "ir_sandwich"              ,"product_title": 'ir_sandwich'      , "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
     { "product_key": "cloud_phase_distinction"  ,"product_title": 'Cloud_Phase_Distinction'      , "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
+    { "product_key": "ndvi"  ,"product_title": 'NDVI'      , "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
 
 ]
 

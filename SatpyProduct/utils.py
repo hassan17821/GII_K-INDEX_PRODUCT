@@ -11,6 +11,8 @@ from satpy.writers import to_image
 from satpy.enhancements import create_colormap
 from satpy.enhancements import palettize
 from datetime import datetime
+import numpy as np
+from satpy.dataset import combine_metadata
 
 import os
 from pyresample import create_area_def
@@ -33,6 +35,63 @@ def plot_msg(data_dir, output_path, composite, fnames):
         scn_resampled = scn.resample(my_area)
         print("Saving File : " + output_path)
         scn_resampled.save_dataset(composite, output_path)
+    except ValueError as ve:
+        print("Value Error : ", output_path)
+        print(ve)
+    except Exception as e:
+        print("Some Error  : ",output_path)
+        print(e)
+
+
+
+def plot_ndvi(output_path,  fnames):
+    try:
+        bands = [
+            'HRV',
+            'IR_016',
+            'IR_039',
+            'IR_087',
+            'IR_097',
+            'IR_108',
+            'IR_120',
+            'IR_134',
+            'VIS006',
+            'VIS008',
+            'WV_062',
+            'WV_073',
+        ]
+
+        latBound = [7.22, 37.454]
+        lngBound = [43.753, 102.363]
+
+        scn = Scene(reader='seviri_l1b_hrit', filenames=fnames)
+
+        scn.load(bands)
+
+        my_area = create_area_def('my_area', {'proj': 'merc', 'lon_0': 45.5},
+                    width=1500, height=850,
+                    area_extent=[lngBound[0], latBound[0], lngBound[1], latBound[1]],
+                    reduce_data=False,
+                    units='degrees')
+
+        scn_resampled = scn.resample(my_area)
+        ndvi = (scn_resampled["IR_039"] - scn_resampled["IR_016"]) / (scn_resampled["IR_039"] + scn_resampled["IR_016"])
+        # ndvi = (scn_resampled["IR_087"] - scn_resampled["VIS006"]) / (scn_resampled["IR_087"] + scn_resampled["VIS006"])
+
+        ndvi.attrs = combine_metadata(scn_resampled[0.8], scn_resampled[0.6])
+        ndvi.attrs.pop("standard_name")
+        # ndvi_masked = np.where(ndvi < 0.94, ndvi, np.nan) 
+        # Display NDVI
+        fig = plt.figure(figsize=(10, 8))
+        plt.axis('off')
+        plt.imshow(ndvi, cmap='RdYlGn')
+        # plt.colorbar(label='NDVI')
+        # plt.title('Normalized Difference Vegetation Index (NDVI)')
+        # plt.show()
+            # Save the figure using the provided output path
+        fig.patch.set_alpha(0)
+        print("Saving File : " + output_path)
+        fig.savefig(output_path, transparent=True, format='webp', dpi=300, bbox_inches='tight', pad_inches=0)
     except ValueError as ve:
         print("Value Error : ", output_path)
         print(ve)
@@ -91,4 +150,4 @@ def generateNightTimeRange():
 def pad_zero(num):
     return str(num).zfill(2)
 
-export = plot_msg,is_daytime,is_time_present, generate24HourTimeRange,generateDayTimeRange,generateNightTimeRange
+export = plot_msg,is_daytime,is_time_present, generate24HourTimeRange,generateDayTimeRange,generateNightTimeRange,plot_ndvi
