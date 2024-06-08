@@ -1,26 +1,31 @@
 from utils import generate24HourTimeRange,generateDayTimeRange ,generateNightTimeRange
 
 day_and_night_products = [
-    { "product_key": "dust"                        ,"product_title": 'Dust_RGB'                                               , "product_type": 'product' , "valid_time_args": generate24HourTimeRange()},
-    # { "product_key": "natural_color_with_night_ir" ,"product_title": 'Picture_4_NaturL_COLOR_rgb_ir016_VIS008_vis006_WG'      , "product_type": 'product' , "valid_time_args": generate24HourTimeRange()},
+    { "product_key": "dust"                        ,"product_title": 'Dust_RGB'                    , "product_type": 'product' , "valid_time_args": generate24HourTimeRange()},
+    { "product_key": "natural_color_with_night_ir" ,"product_title": 'natural_color_with_night_ir' , "product_type": 'product' , "valid_time_args": generate24HourTimeRange()},
     # { "product_key": "airmass"                     ,"product_title": 'Picture_3_Water_vapour_content_IO_region_reprojected_WG', "product_type": 'product' , "valid_time_args": generate24HourTimeRange()},
 ]
 
 day_products = [
-    { "product_key": "fog"                      ,"product_title": 'Fog'              , "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
-    { "product_key": "hrv_fog"                  ,"product_title": 'HRV_Fog'          , "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
-    { "product_key": "snow"                     ,"product_title": 'Snow_RGB'         , "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
-    { "product_key": "hrv_severe_storms_masked" ,"product_title": 'HRV_Severe_Storms', "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
-    { "product_key": "day_microphysics"         ,"product_title": 'Microphysics'     , "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
-    { "product_key": "ir_sandwich"              ,"product_title": 'ir_sandwich'      , "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
-    { "product_key": "cloud_phase_distinction"  ,"product_title": 'Cloud_Phase_Distinction'      , "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
-    { "product_key": "ndvi"  ,"product_title": 'NDVI'      , "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
+    { "product_key": "hrv_fog"                  ,"product_title": 'HRV_Fog'                 , "product_type": 'product' , "valid_time_args": generate24HourTimeRange()},
+    { "product_key": "snow"                     ,"product_title": 'Snow_RGB'                , "product_type": 'product' , "valid_time_args": generate24HourTimeRange()},
+    { "product_key": "hrv_severe_storms_masked" ,"product_title": 'HRV_Severe_Storms'       , "product_type": 'product' , "valid_time_args": generate24HourTimeRange()},
+    { "product_key": "ir_sandwich"              ,"product_title": 'ir_sandwich'             , "product_type": 'product' , "valid_time_args": generate24HourTimeRange()},
+    { "product_key": "cloud_phase_distinction"  ,"product_title": 'Cloud_Phase_Distinction' , "product_type": 'product' , "valid_time_args": generate24HourTimeRange()},
+    { "product_key": "ndvi"                     ,"product_title": 'NDVI'                    , "product_type": 'product' , "valid_time_args": generate24HourTimeRange()},
+
+    { "product_key": "fog"              ,"product_title": 'Fog'          , "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
+    { "product_key": "day_microphysics" ,"product_title": 'Microphysics' , "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
+    { "product_key": "rocket_plume_day" ,"product_title": 'rocket_plume' , "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
+    { "product_key": "ash"              ,"product_title": 'ash'          , "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
+    { "product_key": "green_snow"       ,"product_title": 'green_snow'   , "product_type": 'product' , "valid_time_args": generateDayTimeRange()},
 
 ]
 
 night_products = [
     { "product_key": "night_fog"          ,"product_title": 'Fog'         , "product_type": 'product' , "valid_time_args": generateNightTimeRange()},
     { "product_key": "night_microphysics" ,"product_title": 'Microphysics', "product_type": 'product' , "valid_time_args": generateNightTimeRange()},
+    { "product_key": "rocket_plume_night" ,"product_title": 'rocket_plume', "product_type": 'product' , "valid_time_args": generateNightTimeRange()},
 ]
 
 band_products = [

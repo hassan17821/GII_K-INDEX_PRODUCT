@@ -140,12 +140,12 @@ def generate24HourTimeRange():
     return generate_time_range('00:00', '23:45', 15)
 
 def generateDayTimeRange ():
-    return generate_time_range('00:00', '23:45', 15)
-    # return generate_time_range('04:00', '18:00', 15)
+    # return generate_time_range('00:00', '23:45', 15)
+    return generate_time_range('04:00', '18:00', 15)
 
 def generateNightTimeRange():
-    return generate_time_range('00:00', '23:45', 15)
-    # return generate_time_range('00:00', '03:45', 15) +generate_time_range('18:15', '23:45', 15);
+    # return generate_time_range('00:00', '23:45', 15)
+    return generate_time_range('00:00', '03:45', 15) +generate_time_range('18:15', '23:45', 15);
 
 def pad_zero(num):
     return str(num).zfill(2)
