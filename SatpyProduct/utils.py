@@ -46,27 +46,30 @@ def plot_msg(data_dir, output_path, composite, fnames):
 
 def plot_ndvi(output_path,  fnames):
     try:
-        bands = [
-            'HRV',
-            'IR_016',
-            'IR_039',
-            'IR_087',
-            'IR_097',
-            'IR_108',
-            'IR_120',
-            'IR_134',
-            'VIS006',
-            'VIS008',
-            'WV_062',
-            'WV_073',
-        ]
+        # bands = [
+        #     'HRV',
+        #     'IR_016',
+        #     'IR_039',
+        #     'IR_087',
+        #     'IR_097',
+        #     'IR_108',
+        #     'IR_120',
+        #     'IR_134',
+        #     'VIS006',
+        #     'VIS008',
+        #     'WV_062',
+        #     'WV_073',
+        # ]
+
+        NIR_channel = 'IR_016'  # Near Infrared channel
+        VIS_channel = 'VIS006'  # Visible channel
 
         latBound = [7.22, 37.454]
         lngBound = [43.753, 102.363]
 
         scn = Scene(reader='seviri_l1b_hrit', filenames=fnames)
 
-        scn.load(bands)
+        scn.load([NIR_channel, VIS_channel])
 
         my_area = create_area_def('my_area', {'proj': 'merc', 'lon_0': 45.5},
                     width=1500, height=850,
@@ -75,16 +78,15 @@ def plot_ndvi(output_path,  fnames):
                     units='degrees')
 
         scn_resampled = scn.resample(my_area)
-        ndvi = (scn_resampled["IR_039"] - scn_resampled["IR_016"]) / (scn_resampled["IR_039"] + scn_resampled["IR_016"])
-        # ndvi = (scn_resampled["IR_087"] - scn_resampled["VIS006"]) / (scn_resampled["IR_087"] + scn_resampled["VIS006"])
+        R_NIR = scn_resampled[NIR_channel].data
+        R_VIS = scn_resampled[VIS_channel].data
+        NDVI = (R_NIR - R_VIS) / (R_NIR + R_VIS)
 
-        ndvi.attrs = combine_metadata(scn_resampled[0.8], scn_resampled[0.6])
-        ndvi.attrs.pop("standard_name")
         # ndvi_masked = np.where(ndvi < 0.94, ndvi, np.nan) 
         # Display NDVI
         fig = plt.figure(figsize=(10, 8))
         plt.axis('off')
-        plt.imshow(ndvi, cmap='RdYlGn')
+        plt.imshow(NDVI, cmap='RdYlGn')
         # plt.colorbar(label='NDVI')
         # plt.title('Normalized Difference Vegetation Index (NDVI)')
         # plt.show()
