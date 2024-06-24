@@ -7,11 +7,10 @@ import fnmatch
 import time
 
 current_date = datetime.now().strftime('%Y-%m-%d')
-# current_date = "2024-06-05"
 
 # Input and output directory paths
 input_base_path = os.path.join(r'D:\server1\Archive', current_date)
-output_base_path = os.path.join(r'D:\server1\Archive', current_date)
+output_base_path = os.path.join(r'D:\server1\Archive', current_date, 'transparent')
 
 # Define target colors as an array of objects with tolerance
 target_colors = [
@@ -20,12 +19,13 @@ target_colors = [
 
 # File patterns to match
 file_patterns = [
-    'Picture_2_Rain_fall_estimate_using_IR_imagery_WG*',
-    'Picture_5_IR_108+IR_120+IR_120 reprojected palette_WG*',
-    'HRV_IO_region_WG*'
+    'Picture_2_Rain_fall_estimate_using_IR_imagery_WG*.webp',
+    'Picture_5_IR_108+IR_120+IR_120 reprojected palette_WG*.webp',
+    'HRV_IO_region_WG*.webp'
 ]
 
 def process_image(input_path, output_path):
+    global processed_files  # Use the global set variable
     # Remove .jpg from output_path and add .webp
     output_path = output_path.replace(".jpg", ".webp")
 
@@ -86,5 +86,5 @@ def process_directory(input_dir, output_dir):
 # Process the input directory
 while True:
     process_directory(input_base_path, output_base_path)    
-    print('________ Sleeping for 120sec _____________')
+    # print('________ Sleeping for 120sec _____________')
     time.sleep(120)  # Wait for 120 seconds before running the process again
