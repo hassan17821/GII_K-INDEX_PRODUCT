@@ -1,19 +1,18 @@
 # For multiple Color transparent
 import cv2
 import numpy as np
-from google.colab.patches import cv2_imshow
-from google.colab import drive
-
+# from google.colab.patches import cv2_imshow
+# from google.colab import drive
 # Mount Google Drive (if needed)
 # drive.mount('/content/drive')
 
 # Image file paths
-image_path = '/content/drive/MyDrive/329.jpg'
-output_path = '329.webp'
+image_path = './sample/2__input.jpg'
+output_path = './sample/2__output.webp'
 
 # Define target colors as an array of objects with tolerance
 target_colors = [
-    {'color': (212, 230, 230), 'tolerance': 0.15},
+    {'color': (212, 230, 230), 'tolerance': 0.10},
     {'color': (255, 255, 255), 'tolerance': 0.05},
 ]
 
@@ -35,7 +34,7 @@ if image is not None:
     target_color_upper = np.array([target_color[0] * (1 + tolerance), target_color[1] * (1 + tolerance), target_color[2] * (1 + tolerance)])
     mask = cv2.inRange(image, target_color_lower, target_color_upper)
     print('Mask for color ',target_color)
-    cv2_imshow(mask)
+    # cv2_imshow(mask)
     masks.append(mask)
 
   # Combine masks (union)
@@ -43,10 +42,10 @@ if image is not None:
   for mask in masks[1:]:    # Combine remaining masks with bitwise OR
     combined_mask = cv2.bitwise_or(combined_mask, mask)
 
-  print('Original ')
-  cv2_imshow(image)
-  print('Combined Mask ')
-  cv2_imshow(combined_mask)
+  # print('Original ')
+  # cv2_imshow(image)
+  # print('Combined Mask ')
+  # cv2_imshow(combined_mask)
 
   # Invert the mask
   combined_mask = cv2.bitwise_not(combined_mask)
@@ -57,6 +56,6 @@ if image is not None:
 
   # Save the transparent image
   cv2.imwrite(output_path, transparent_image)
-  print('Final ')
+  # print('Final ')
   # Display the transparent image (if in a compatible environment)
-  cv2_imshow(transparent_image)
+  # cv2_imshow(transparent_image)
