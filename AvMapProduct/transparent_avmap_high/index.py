@@ -14,6 +14,14 @@ target_colors = [
 ]
 
 def process_image(input_path, output_path):
+    # Remove .jpg from output_path and add .webp
+    output_path = output_path.replace(".jpg", ".webp")
+
+    # Check if the .webp file already exists
+    if exists(output_path):
+        print(f"Skipping already existing file: {output_path}")
+        return
+
     # Load the image
     image = cv2.imread(input_path)
 
@@ -49,8 +57,6 @@ def process_image(input_path, output_path):
         os.makedirs(output_dir, exist_ok=True)
 
         # Save the transparent image
-        # remove .jpg from output_path and add .webp
-        output_path = output_path.replace(".jpg", ".webp")
         cv2.imwrite(output_path, transparent_image)
         print(f"Processed and saved image: {output_path}")
     else:
@@ -62,7 +68,6 @@ def process_directory(input_dir, output_dir):
             if file.endswith(".jpg"):
                 input_path = join(root, file)
                 output_path = join(output_dir, os.path.relpath(root, input_dir), file)
-                # print(f"Processing image: {input_path} -> {output_path}")
                 process_image(input_path, output_path)
 
 # Process the input directory
