@@ -4,8 +4,8 @@ import os
 from os.path import join, exists
 
 # Input and output paths
-input_base_path = r"D:/AVMAP__1"
-output_base_path = r"D:/AVMAP__2/2402"
+input_base_path = r"\\169.254.136.185\samba_C\Home\BaseMaps\skyvector\304\2402"
+output_base_path = r"\\169.254.136.185\samba_C\Home\BaseMaps\skyvector\304_transparent\2402"
 
 # Define target colors as an array of objects with tolerance
 target_colors = [
