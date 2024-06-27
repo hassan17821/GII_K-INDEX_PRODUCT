@@ -8,9 +8,18 @@ import time
 
 current_date = datetime.now().strftime('%Y-%m-%d')
 
+# NOTEPOINT 
+# OUTPUT FOLDER SHALL BE OUTSIDE THE INPUT FOLDER
+# OTHER WISE INFINITE LOOP WILL OCCUR
+
+# EXAMPLE :: FAIL INPUT
+# input_base_path = os.path.join(r'D:\server1\Archive', current_date)
+# output_base_path = os.path.join(r'D:\server1\Archive', current_date)
+
+
 # Input and output directory paths
 input_base_path = os.path.join(r'D:\server1\Archive', current_date)
-output_base_path = os.path.join(r'D:\server1\Archive', current_date, 'transparent')
+output_base_path = os.path.join(r'D:\server1\Archive\transparent', current_date)
 
 # Define target colors as an array of objects with tolerance
 target_colors = [
@@ -20,8 +29,8 @@ target_colors = [
 # File patterns to match
 file_patterns = [
     'Picture_2_Rain_fall_estimate_using_IR_imagery_WG*.webp',
-    'Picture_5_IR_108+IR_120+IR_120 reprojected palette_WG*.webp',
-    'HRV_IO_region_WG*.webp'
+    # 'Picture_5_IR_108+IR_120+IR_120 reprojected palette_WG*.webp',
+    # 'HRV_IO_region_WG*.webp'
 ]
 
 def process_image(input_path, output_path):
@@ -64,10 +73,6 @@ def process_image(input_path, output_path):
         transparent_image = cv2.cvtColor(image, cv2.COLOR_BGR2BGRA)
         transparent_image[:, :, 3] = combined_mask
 
-        # Create the output directory if it doesn't exist
-        output_dir = os.path.dirname(output_path)
-        os.makedirs(output_dir, exist_ok=True)
-
         # Save the transparent image
         cv2.imwrite(output_path, transparent_image)
         print(f"Processed and saved image: {output_path}")
@@ -83,8 +88,8 @@ def process_directory(input_dir, output_dir):
                 output_path = join(output_dir, os.path.relpath(root, input_dir), file)
                 process_image(input_path, output_path)
 
-# Process the input directory
+# Process the input directory in an infinite loop
 while True:
-    process_directory(input_base_path, output_base_path)    
-    # print('________ Sleeping for 120sec _____________')
+    process_directory(input_base_path, output_base_path)
+    print('________ Sleeping for 120sec _____________')
     time.sleep(120)  # Wait for 120 seconds before running the process again
