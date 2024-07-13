@@ -10,7 +10,7 @@ set CONDA_ENV=base
 
 :: Set the Python script file path
 set python_script=D:/SATMET_PRODUCTS/GII_PRODUCT/AMVProduct/index.py
-set "input_dir=//EUMETCAST-INGES/Data/XRIT/Binary files/Archive"
+set "input_dir=//EUMETCAST-INGES/Data/XRIT/BinaryFiles/Archive"
 
 :: Activate Conda environment
 call "%CONDA_PATH%\Scripts\activate.bat" %CONDA_ENV%

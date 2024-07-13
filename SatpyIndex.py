@@ -36,6 +36,8 @@ def process_data(end_time, start_time):
     # Process the files
     for hhmm, source_drive in source_drives:
         if os.path.exists(source_drive):
+            destination_folder = rf"D:/server1/Archive/HRIT_Python/{end_time.strftime('%Y-%m-%d')}/{hhmm}"
+            os.makedirs(destination_folder, exist_ok=True)
             subprocess.run(["python", python_script, end_time.strftime('%Y-%m-%d'), hhmm, source_drive, destination_folder])
     
     print(f"Processed data from {end_time.strftime('%H:%M')} to {start_time.strftime('%H:%M')}, skipping the most recent time slot")
