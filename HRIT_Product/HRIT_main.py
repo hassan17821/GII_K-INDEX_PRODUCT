@@ -7,7 +7,7 @@ import schedule
 def process_data(end_time, start_time):
 
     print(f"Processing data for {end_time.strftime('%Y-%m-%d')} {end_time.strftime('%H-%M')}")
-    python_script = r"D:/SATMET_PRODUCTS/GII_PRODUCT/SatpyProduct/index.py"
+    python_script = r"D:/SATMET_PRODUCTS/MSG_PYTHON_PRODUCT/HRIT_Product/index.py"
     
     # destination_folder = os.path.join(r"D:/server1/Archive/HRIT_Python", end_time.strftime('%Y-%m-%d'))
     destination_folder = rf"D:/server1/Archive/HRIT_Python/{end_time.strftime('%Y-%m-%d')}"

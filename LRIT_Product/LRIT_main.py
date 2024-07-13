@@ -12,7 +12,8 @@ def main():
         conda_env = "base"
 
         # Set the Python script file path
-        python_script = r"D:/SATMET_PRODUCTS/GII_PRODUCT/GIIProduct/index.py"
+        # D:/SATMET_PRODUCTS/MSG_PYTHON_PRODUCT/LRIT_Product/index.py
+        python_script = r"D:/SATMET_PRODUCTS/MSG_PYTHON_PRODUCT/LRIT_Product/index.py"
         input_dir = r"//EUMETCAST-INGES/Data/XRIT/BinaryFiles/Archive"
 
         # Activate Conda environment

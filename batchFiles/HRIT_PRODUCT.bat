@@ -7,7 +7,7 @@ set CONDA_PATH=C:\Softwares\miniconda
 set CONDA_ENV=base
 
 :: Set the Python script file path
-set python_script=D:/SATMET_PRODUCTS/GII_PRODUCT/SatpyIndex.py
+set python_script=D:/SATMET_PRODUCTS/MSG_PYTHON_PRODUCT/HRIT_Product/HRIT_main.py
 
 :: Set the current date and time
 python %python_script%

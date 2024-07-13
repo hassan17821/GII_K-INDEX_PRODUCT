@@ -9,7 +9,7 @@ set CONDA_PATH=C:\Softwares\miniconda
 set CONDA_ENV=base
 
 :: Set the Python script file path
-set python_script=D:/SATMET_PRODUCTS/GII_PRODUCT/SatpyProduct/index.py
+set python_script=D:/SATMET_PRODUCTS/MSG_PYTHON_PRODUCT/SatpyProduct/index.py
 
 :: Set the current date and time
 for /f "delims=" %%b in ('"powershell [DateTime]::Now.AddHours(-5).ToString('HH-mm')"') do set mytime=%%b

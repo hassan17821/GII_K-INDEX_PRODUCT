@@ -2,11 +2,11 @@ import os
 import sys
 
 # Add the parent directory to sys.path
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
+# current_dir = os.path.dirname(os.path.abspath(__file__))
+# parent_dir = os.path.dirname(current_dir)
+# sys.path.append(parent_dir)
 # Import functions from modules
-from SatpyProduct.all_hrit_products import plot_products
+from all_hrit_products import plot_products
 from satpy.utils import debug_off,debug_on
 debug_off()
 import warnings
