@@ -4,43 +4,41 @@ import subprocess
 import time
 import schedule
 
-def collect_sort_pick_files(folder_path):
-    # Collect all files in the folder
-    all_files = []
-    for root, dirs, files in os.walk(folder_path):
-        for file in files:
-            file_path = os.path.join(root, file)
-            all_files.append(file_path)
-
-    # Sort files by modification time (newest first)
-    sorted_files = sorted(all_files, key=os.path.getmtime, reverse=True)
-
-    # Pick files (in this case, all except the most recent)
-    picked_files = sorted_files[1:]
-
-    return picked_files
-
 def process_data(end_time, start_time):
+
     print(f"Processing data for {end_time.strftime('%Y-%m-%d')} {end_time.strftime('%H-%M')}")
     python_script = r"D:/SATMET_PRODUCTS/GII_PRODUCT/SatpyProduct/index.py"
     
+    # destination_folder = os.path.join(r"D:/server1/Archive/HRIT_Python", end_time.strftime('%Y-%m-%d'))
     destination_folder = rf"D:/server1/Archive/HRIT_Python/{end_time.strftime('%Y-%m-%d')}"
+    
     os.makedirs(destination_folder, exist_ok=True)
 
     base_path = rf"Z:/Data/XRIT/Archive/MSG2_IODC/{end_time.strftime('%Y-%m-%d')}"
     
+    source_drives = []
     if os.path.exists(base_path):
-        files_to_process = collect_sort_pick_files(base_path)
-        
-        print(f"Files to process: {files_to_process}")
-
-        # Process the files
-        for file_path in files_to_process:
-            file_time = os.path.basename(os.path.dirname(file_path))
-            if start_time.strftime('%H-%M') <= file_time <= end_time.strftime('%H-%M'):
-                subprocess.run(["python", python_script, end_time.strftime('%Y-%m-%d'), file_time, os.path.dirname(file_path), destination_folder])
+        for folder in os.listdir(base_path):
+            if os.path.isdir(os.path.join(base_path, folder)):
+                folder_time = folder  # Use the folder name directly as the time
+                if start_time.strftime('%H-%M') <= folder_time <= end_time.strftime('%H-%M'):
+                    source_drives.append((folder_time, base_path + "/" + folder))
     
-    print(f"Processed data from {end_time.strftime('%H:%M')} to {start_time.strftime('%H:%M')}, skipping the most recent file")
+    # Sort source drives in reverse chronological order
+    source_drives.sort(reverse=True)
+    
+    # Skip the first (most recent) time slot
+    if source_drives:
+        source_drives = source_drives[1:]
+    
+    print("source_drives:", source_drives)
+
+    # Process the files
+    for hhmm, source_drive in source_drives:
+        if os.path.exists(source_drive):
+            subprocess.run(["python", python_script, end_time.strftime('%Y-%m-%d'), hhmm, source_drive, destination_folder])
+    
+    print(f"Processed data from {end_time.strftime('%H:%M')} to {start_time.strftime('%H:%M')}, skipping the most recent time slot")
 
 def job():
     current_time = datetime.datetime.now() - datetime.timedelta(hours=5)
@@ -54,7 +52,7 @@ def job():
     process_data(end_time, start_time)
 
 def main():
-    print("SatpyIndex.py started")
+    print ("SatpyIndex.py started")
     job()
     # Schedule the job to run every 5 minutes
     schedule.every(5).minutes.do(job)
