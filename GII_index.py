@@ -40,9 +40,13 @@ def main():
         max_bounds = 10
         for hhmm, source_drive in source_drives:
             if os.path.exists(source_drive):
-                destination_folder = f"D:/server1/Archive/LRIT_Satpy/{date_str}/{hhmm}"
-                os.makedirs(destination_folder, exist_ok=True)
-                print(f"{python_script} {date_str} {hhmm} {source_drive} {destination_folder}")
+                destination_folder = f"D:/server1/Archive/LRIT_Python/{date_str}/{hhmm}"
+                # os.makedirs(destination_folder, exist_ok=True)
+                print(f"=============== LRIT ===================")
+                print(f"Processing LRIT data for {date_str} {hhmm}")
+                print(f"Source drive: {source_drive}")
+                print(f"Destination folder: {destination_folder}")
+                print(f"=======================================")
                 subprocess.run(["python", python_script, date_str, hhmm, source_drive, destination_folder])
                 temp_count += 1
                 if temp_count > max_bounds:

@@ -14,40 +14,40 @@ if len(sys.argv) == 5:
     date_arg, time_arg, input_path_arg, output_path_arg = sys.argv[1:]
     output_data = [
         {
-            'output_path': f'{output_path_arg}/LRIT_GII_kIndex [{time_arg}].webp',
+            'output_path': f'{output_path_arg}/LRIT_GII_kIndex__{time_arg}.webp',
             'function': plot_kIndex
         },
         {
-            'output_path': f'{output_path_arg}/LRIT_GII_koIndex [{time_arg}].webp',
+            'output_path': f'{output_path_arg}/LRIT_GII_koIndex__{time_arg}.webp',
             'function': plot_koIndex
         },
         {
-            'output_path': f'{output_path_arg}/LRIT_GII_parcelLiftedIndexTo500Hpa [{time_arg}].webp',
+            'output_path': f'{output_path_arg}/LRIT_GII_parcelLiftedIndexTo500Hpa__{time_arg}.webp',
             'function': plot_parcelLiftedIndexTo500Hpa
         },
         {
-            'output_path': f'{output_path_arg}/LRIT_GII_totalPrecipitableWater [{time_arg}].webp',
+            'output_path': f'{output_path_arg}/LRIT_GII_totalPrecipitableWater__{time_arg}.webp',
             'function': plot_totalPrecipitableWater
         },
         {
-            'output_path': f'{output_path_arg}/LRIT_GII_precipitableWater10To500mbar [{time_arg}].webp',
+            'output_path': f'{output_path_arg}/LRIT_GII_precipitableWater10To500mbar__{time_arg}.webp',
             'function': plot_precipitableWater10To500mbar
         },
         {
-            'output_path': f'{output_path_arg}/LRIT_GII_precipitableWater500To850mbar [{time_arg}].webp',
+            'output_path': f'{output_path_arg}/LRIT_GII_precipitableWater500To850mbar__{time_arg}.webp',
             'function': plot_precipitableWater500To850mbar
         },
         {
-            'output_path': f'{output_path_arg}/LRIT_GII_precipitableWater850To1000mbar [{time_arg}].webp',
+            'output_path': f'{output_path_arg}/LRIT_GII_precipitableWater850To1000mbar__{time_arg}.webp',
             'function': plot_precipitableWater850To1000mbar
         },
         {
-            'output_path': f'{output_path_arg}/LRIT_GII_maximumBuoyancy [{time_arg}].webp',
+            'output_path': f'{output_path_arg}/LRIT_GII_maximumBuoyancy__{time_arg}.webp',
             'function': plot_maximumBuoyancy
         }
     ]
 
-    print(input_path_arg)
+    # print(input_path_arg)
     # Check if output paths exist
     if all(os.path.exists(item['output_path']) for item in output_data):
         print("All output paths already exist")
@@ -57,6 +57,7 @@ if len(sys.argv) == 5:
             output_path = item['output_path']
             function = item['function']
             if not os.path.exists(output_path):
+                os.makedirs(output_path_arg, exist_ok=True)
                 print(f"Processing {function.__name__} {output_path}")
                 function(output_path, df)
 
