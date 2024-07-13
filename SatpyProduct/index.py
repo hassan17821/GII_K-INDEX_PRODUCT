@@ -1,8 +1,12 @@
 import os
 import sys
 
+# Add the parent directory to sys.path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
 # Import functions from modules
-from all_products import plot_products
+from SatpyProduct.all_hrit_products import plot_products
 from satpy.utils import debug_off,debug_on
 debug_off()
 import warnings
@@ -24,11 +28,11 @@ if len(sys.argv) == 5:
     # exclude all .temp files in the directory
 
     print("FileNames Length :: ", len(fnames))
-    if len(fnames) < 140:
-        raise ValueError("Insufficient number of files in the directory. Expected at least 140 files.")
-    else:
-        output_path = f'{output_path_arg}/**placeholder_name** [{time_arg}].webp'
-        plot_products(input_path_arg, output_path, date_arg, time_arg, fnames)
+    # if len(fnames) < 140:
+    #     raise ValueError("Insufficient number of files in the directory. Expected at least 140 files.")
+    # else:
+    output_path = f'{output_path_arg}/**placeholder_name** [{time_arg}].webp'
+    plot_products(input_path_arg, output_path, date_arg, time_arg, fnames)
 
 else:
     print("Some required arguments are missing.")

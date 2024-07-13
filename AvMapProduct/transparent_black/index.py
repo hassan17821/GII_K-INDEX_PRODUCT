@@ -18,8 +18,8 @@ current_date = datetime.now().strftime('%Y-%m-%d')
 
 
 # Input and output directory paths
-input_base_path = os.path.join(r'D:\server1\Archive', current_date)
-output_base_path = os.path.join(r'D:\server1\Archive\transparent', current_date)
+input_base_path = 'D:/TEMP/input'
+output_base_path = 'D:/TEMP/output'
 
 # Define target colors as an array of objects with tolerance
 target_colors = [
