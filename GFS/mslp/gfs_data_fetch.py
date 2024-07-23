@@ -26,9 +26,9 @@ def fetch_page_content(url):
     response = requests.get(url, headers=headers)
     return response.text
 
-def parse_latest_entry_url(page_content, base_url):
+def parse_latest_entry_url(page_content, base_url, offset=-1):
     soup = BeautifulSoup(page_content, 'html.parser')
-    latest_entry = soup.find_all('b')[-1]
+    latest_entry = soup.find_all('b')[offset]
     latest_data_url = latest_entry.find_next('a')['href']
     if not latest_data_url.startswith(base_url):
         latest_data_url = base_url + latest_data_url
@@ -45,7 +45,7 @@ def extract_date_from_url(url):
     
 def fetch_latest_data(base_url):    
     date_url_content = fetch_page_content(base_url)
-    latest_data_url = parse_latest_entry_url(date_url_content, base_url)
+    latest_data_url = parse_latest_entry_url(date_url_content, base_url, -1)
 
     print(latest_data_url)
 
@@ -59,9 +59,9 @@ def fetch_latest_data(base_url):
     if date_str:
         gfs_url = f"https://nomads.ncep.noaa.gov/dods/gfs_0p25_1hr/gfs{date_str}"
         gfs_url_content = fetch_page_content(gfs_url)
-        print(gfs_url_content)
+        # print(gfs_url_content)
 
-        latest_data_url = parse_latest_entry_url(gfs_url_content, base_url)
+        latest_data_url = parse_latest_entry_url(gfs_url_content, base_url, -1)
 
         if latest_data_url.endswith('.info'):
             latest_data_url = latest_data_url[:-5]
