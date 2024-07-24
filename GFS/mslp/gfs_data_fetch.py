@@ -3,7 +3,8 @@ from bs4 import BeautifulSoup
 import requests
 import re
 
-DATA_URL=""
+DATA_URLS = []
+
 headers = {
     "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
     "accept-language": "en-US,en;q=0.9",
@@ -26,13 +27,16 @@ def fetch_page_content(url):
     response = requests.get(url, headers=headers)
     return response.text
 
-def parse_latest_entry_url(page_content, base_url, offset=-1):
+def parse_all_entry_urls(page_content, base_url):
+    DATA_URLS = []
     soup = BeautifulSoup(page_content, 'html.parser')
-    latest_entry = soup.find_all('b')[offset]
-    latest_data_url = latest_entry.find_next('a')['href']
-    if not latest_data_url.startswith(base_url):
-        latest_data_url = base_url + latest_data_url
-    return latest_data_url
+    entries = soup.find_all('b')
+    for entry in entries:
+        data_url = entry.find_next('a')['href']
+        if not data_url.startswith(base_url):
+            data_url = base_url + data_url
+        DATA_URLS.append(data_url)
+    return DATA_URLS
 
 def extract_date_from_url(url):
     match = re.search(r'gfs(\d{8})', url)
@@ -41,34 +45,33 @@ def extract_date_from_url(url):
     else:
         return None
 
-# Fetch the initial page content
-    
-def fetch_latest_data(base_url):    
+def fetch_all_data(base_url):
     date_url_content = fetch_page_content(base_url)
-    latest_data_url = parse_latest_entry_url(date_url_content, base_url, -1)
+    all_data_urls = parse_all_entry_urls(date_url_content, base_url)
 
-    print(latest_data_url)
+    return all_data_urls
 
-    date_str = extract_date_from_url(latest_data_url)
-    if date_str:
-        print(date_str)  # Outputs: 20240714
-    else:
-        print("No date found in the URL")
+def fetch_gfs_mslp():
+    all_date_urls = fetch_all_data(base_url)
+    last = all_date_urls[-1]
+    second_last = all_date_urls[-2]
 
-    # Fetch the GFS page content if a date was found
-    if date_str:
-        gfs_url = f"https://nomads.ncep.noaa.gov/dods/gfs_0p25_1hr/gfs{date_str}"
-        gfs_url_content = fetch_page_content(gfs_url)
-        # print(gfs_url_content)
+    last_data_urls = fetch_all_data(last)
+    second_last_data_urls = fetch_all_data(second_last)
 
-        latest_data_url = parse_latest_entry_url(gfs_url_content, base_url, -1)
+    # Combine the two lists
+    combined = second_last_data_urls + last_data_urls;
 
-        if latest_data_url.endswith('.info'):
-            latest_data_url = latest_data_url[:-5]
+    # Filter out the ".info" files
+    # filtered_urls = [url for url in combined if url.endswith(".info")]
 
-        DATA_URL = latest_data_url
-        print(latest_data_url)
+    # Sort the filtered list to preserve the original order
+    # filtered_urls.sort()
 
-    return DATA_URL
+    for url in combined:
+        print(url)
+    return combined
 
-export = fetch_latest_data
+# fetch_gfs_mslp()
+
+export = fetch_gfs_mslp

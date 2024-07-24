@@ -8,7 +8,7 @@ import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 from scipy.ndimage import gaussian_filter, minimum_filter, maximum_filter
 from urllib.parse import urlparse
-from gfs_data_fetch import fetch_latest_data
+from gfs_data_fetch import fetch_gfs_mslp
 import schedule
 import time
 import subprocess
@@ -18,9 +18,10 @@ import os
 def plot_mslp_isobars():    
     try:
         # Fetch The data url
-        base_url = "http://nomads.ncep.noaa.gov:80/dods/gfs_0p25_1hr"
-        latest_data_url = fetch_latest_data(base_url)
-
+        latest_data_url = fetch_gfs_mslp()[-1]
+        # remove .info from url
+        latest_data_url = latest_data_url.replace('.info', '')
+        
         print(latest_data_url)
         dataset = nc.Dataset(latest_data_url)
         parsed_url = urlparse(latest_data_url)
