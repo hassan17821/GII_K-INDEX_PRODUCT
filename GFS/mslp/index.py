@@ -12,6 +12,8 @@ from gfs_data_fetch import fetch_latest_data
 import schedule
 import time
 import subprocess
+from datetime import datetime
+import os
 
 def plot_mslp_isobars():    
     try:
@@ -82,9 +84,17 @@ def plot_mslp_isobars():
 
             fileName = f'mslp_isobars_{time_index}.webp'
             if(time_index == 0):
-                fileName = f'mslp_isobars_current.webp'
+                fileName = f'mslp_isobars_current.svg'
 
-            plt.savefig(f'D:/server1/Archive/GFS/2024-07-23/{fileName}', format='webp', bbox_inches='tight', pad_inches=0, transparent=True)
+            # current date in YYYY-MM-DD format
+            current_date = datetime.today().strftime("%Y-%m-%d")
+            folder_path = f'D:/server1/Archive/GFS/{current_date}'
+
+            # Create the folder if it doesn't exist
+            if not os.path.exists(folder_path):
+                os.makedirs(folder_path)
+
+            plt.savefig(f'{folder_path}/{fileName}', format='svg', bbox_inches='tight', pad_inches=0, transparent=True)
 
             # Close the figure to avoid memory issues
             plt.close(fig)
