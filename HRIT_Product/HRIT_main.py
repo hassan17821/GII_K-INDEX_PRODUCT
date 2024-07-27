@@ -6,8 +6,8 @@ import schedule
 
 # Constants
 PYTHON_SCRIPT = os.path.join(os.path.dirname(__file__), "index.py")
-BASE_ARCHIVE_PATH = r"D:/server1/Archive/HRIT_Python"
-BASE_DATA_PATH = r"Z:/Data/XRIT/Archive/MSG2_IODC"
+DESTINATION_PATH = r"D:/server1/Archive/HRIT_Python"
+SOURCE_DRIVE_PATH = r"//EUMETCAST-INGES/Dartcom/Data/XRIT/Archive/MSG2_IODC"
 TIME_DELTA_HOURS = 5
 TIME_DELTA_MINUTES = 20
 PROCESS_TIME_DELTA_HOURS = 3
@@ -15,18 +15,18 @@ PROCESS_TIME_DELTA_HOURS = 3
 def process_data(end_time, start_time):
     print(f"Processing data for {end_time.strftime('%Y-%m-%d')} {end_time.strftime('%H-%M')}")
     
-    destination_folder = os.path.join(BASE_ARCHIVE_PATH, end_time.strftime('%Y-%m-%d'))
+    destination_folder = os.path.join(DESTINATION_PATH, end_time.strftime('%Y-%m-%d'))
     os.makedirs(destination_folder, exist_ok=True)
 
-    base_path = os.path.join(BASE_DATA_PATH, end_time.strftime('%Y-%m-%d'))
+    source_drive_path = os.path.join(SOURCE_DRIVE_PATH, end_time.strftime('%Y-%m-%d'))
     
     source_drives = []
-    if os.path.exists(base_path):
-        for folder in os.listdir(base_path):
-            if os.path.isdir(os.path.join(base_path, folder)):
+    if os.path.exists(source_drive_path):
+        for folder in os.listdir(source_drive_path):
+            if os.path.isdir(os.path.join(source_drive_path, folder)):
                 folder_time = folder  # Use the folder name directly as the time
                 if start_time.strftime('%H-%M') <= folder_time <= end_time.strftime('%H-%M'):
-                    source_drives.append((folder_time, os.path.join(base_path, folder)))
+                    source_drives.append((folder_time, os.path.join(source_drive_path, folder)))
     
     # Sort source drives in reverse chronological order
     source_drives.sort(reverse=True)
@@ -40,7 +40,7 @@ def process_data(end_time, start_time):
     # Process the files
     for hhmm, source_drive in source_drives:
         if os.path.exists(source_drive):
-            destination_folder = os.path.join(BASE_ARCHIVE_PATH, end_time.strftime('%Y-%m-%d'), hhmm)
+            destination_folder = os.path.join(DESTINATION_PATH, end_time.strftime('%Y-%m-%d'), hhmm)
             os.makedirs(destination_folder, exist_ok=True)
             subprocess.run(["python", PYTHON_SCRIPT, end_time.strftime('%Y-%m-%d'), hhmm, source_drive, destination_folder])
     
