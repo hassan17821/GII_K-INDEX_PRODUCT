@@ -25,9 +25,8 @@ def process_data(end_time, start_time):
         for folder in os.listdir(source_drive_path):
             if os.path.isdir(os.path.join(source_drive_path, folder)):
                 folder_time = folder  # Use the folder name directly as the time
-                if start_time.strftime('%H-%M') <= folder_time <= end_time.strftime('%H-%M'):
-                    source_drives.append((folder_time, os.path.join(source_drive_path, folder)))
-    
+                source_drives.append((folder_time, os.path.join(source_drive_path, folder)))
+
     # Sort source drives in reverse chronological order
     source_drives.sort(reverse=True)
     
