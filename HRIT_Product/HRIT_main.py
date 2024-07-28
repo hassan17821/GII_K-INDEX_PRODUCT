@@ -12,7 +12,7 @@ SOURCE_DRIVE_PATH = r"//EUMETCAST-INGES/Dartcom/Data/XRIT/Archive/MSG2_IODC"
 TIME_DELTA_HOURS = 5
 TIME_DELTA_MINUTES = 20
 PROCESS_TIME_DELTA_HOURS = 3
-MAX_RETRIES = 2  # Check current period and one previous 5-hour period
+MAX_RETRIES = 3  # Check current period and one previous 5-hour period
 
 # Cache to store processed time slots
 processed_cache = deque(maxlen=1000)  # Store last 1000 processed time slots
@@ -45,7 +45,10 @@ def process_data(end_time, start_time):
 
     processed_any = False
     for hhmm, source_drive in source_drives:
-        if os.path.exists(source_drive) and hhmm not in processed_cache:
+        # update the source drives if new data comes
+        if os.path.exists(source_drive):
+        # if os.path.exists(source_drive) and hhmm not in processed_cache:
+
             destination_folder = os.path.join(destination_base, hhmm)
             os.makedirs(destination_folder, exist_ok=True)
             subprocess.run(["python", PYTHON_SCRIPT, end_time.strftime('%Y-%m-%d'), hhmm, source_drive, destination_folder])
@@ -76,7 +79,7 @@ def job():
 def main():
     print("SatpyIndex.py started")
     job()
-    schedule.every(5).minutes.do(job)
+    schedule.every(1).minutes.do(job)
 
     while True:
         schedule.run_pending()
