@@ -31,10 +31,12 @@ def get_source_drives(date):
     # Sort source drives in reverse chronological order and skip the most recent
     return sorted(source_drives, reverse=True)[1:]
 
-def process_data(end_time, start_time):
+def process_data(end_time, start_time, index):
     print(f"Processing data for {end_time.strftime('%Y-%m-%d %H-%M')}")
-    
+    source_drives_first_time = []
     source_drives = get_source_drives(end_time)
+    if(index == 0):
+        source_drives_first_time = source_drives
     
     if not source_drives:
         print(f"No source drives found for {end_time.strftime('%Y-%m-%d')}. Skipping processing.")
@@ -44,10 +46,7 @@ def process_data(end_time, start_time):
     os.makedirs(destination_base, exist_ok=True)
 
     processed_any = False
-
-    # Extract source drive paths
-    current_source_drive_paths = {source_drive for _, source_drive in source_drives}
-
+    new_source_drives = []
     for hhmm, source_drive in source_drives:
         current_time = datetime.datetime.now()
         adjusted_time_temp = current_time - datetime.timedelta(hours=TIME_DELTA_HOURS * 2)
@@ -55,15 +54,12 @@ def process_data(end_time, start_time):
         end_time_temp = end_time_temp.replace(minute=end_time_temp.minute - end_time_temp.minute % 15, second=0, microsecond=0)
 
         source_drives_temp = get_source_drives(adjusted_time_temp)
-        print("SOURCE_DRIVE_TEMP_0 ", source_drives_temp[0] if source_drives_temp else "No drives")
+        print("SOURCE_DRIVE_TEMP_0 ", source_drives_temp[0])
+        print("SOURCE_DRIVE_FIRST_0 ", source_drives_first_time[0])
 
-        # Extract new source drive paths
-        new_source_drive_paths = {source_drive for _, source_drive in source_drives_temp}
-
-        # Compare current and new source drive paths
-        if new_source_drive_paths != current_source_drive_paths:
-            print("Source drives changed, restarting processing...")
-            return process_data(end_time, start_time)
+        if source_drives_temp and source_drives_temp[0] != source_drives_first_time[0]:
+            new_source_drives = source_drives_temp
+            break
 
         if os.path.exists(source_drive):
             destination_folder = os.path.join(destination_base, hhmm)
@@ -77,12 +73,18 @@ def process_data(end_time, start_time):
     else:
         print(f"No data processed for period ending at {end_time.strftime('%Y-%m-%d %H:%M')}.")
 
+    # Check if source drives changed and restart processing if necessary
+    # if new_source_drives:
+    #     print("Source drives changed, restarting processing...")
+    #     return process_data(end_time, start_time)
+
     return processed_any
 
 def job():
     current_time = datetime.datetime.now()
-    
+    index = -1    
     for i in range(MAX_RETRIES):
+        
         adjusted_time = current_time - datetime.timedelta(hours=TIME_DELTA_HOURS * (i + 1))
         end_time = adjusted_time - datetime.timedelta(minutes=TIME_DELTA_MINUTES)
         start_time = adjusted_time - datetime.timedelta(hours=PROCESS_TIME_DELTA_HOURS)
@@ -90,8 +92,8 @@ def job():
         # Round down to the nearest 15-minute interval
         end_time = end_time.replace(minute=end_time.minute - end_time.minute % 15, second=0, microsecond=0)
         start_time = start_time.replace(minute=start_time.minute - start_time.minute % 15, second=0, microsecond=0)
-
-        if process_data(end_time, start_time):
+        index += 1
+        if process_data(end_time, start_time, index):
             break
         else:
             print(f"No data found for period ending at {end_time.strftime('%Y-%m-%d %H:%M')}. Checking previous 5-hour period.")
