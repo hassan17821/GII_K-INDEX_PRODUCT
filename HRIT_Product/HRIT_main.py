@@ -101,7 +101,7 @@ def job():
 def main():
     print("SatpyIndex.py started")
     job()
-    schedule.every(1).minutes.do(job)
+    schedule.every(0.1).minutes.do(job)
 
     while True:
         schedule.run_pending()
