@@ -44,11 +44,20 @@ def process_data(end_time, start_time):
     os.makedirs(destination_base, exist_ok=True)
 
     processed_any = False
+    new_source_drives = []
     for hhmm, source_drive in source_drives:
-        # update the source drives if new data comes
-        if os.path.exists(source_drive):
-        # if os.path.exists(source_drive) and hhmm not in processed_cache:
+        current_time = datetime.datetime.now()
+        adjusted_time_temp = current_time - datetime.timedelta(hours=TIME_DELTA_HOURS * 2)
+        end_time_temp = adjusted_time_temp - datetime.timedelta(minutes=TIME_DELTA_MINUTES)
+        end_time_temp = end_time_temp.replace(minute=end_time_temp.minute - end_time_temp.minute % 15, second=0, microsecond=0)
 
+        source_drives_temp = get_source_drives(adjusted_time_temp)
+        print("SOURCE_DRIVE_TEMP_0 ", source_drives_temp[0] if source_drives_temp else "No drives")
+
+        if source_drives_temp and source_drives_temp[0] != source_drives[0]:
+            new_source_drives = source_drives_temp
+
+        if os.path.exists(source_drive):
             destination_folder = os.path.join(destination_base, hhmm)
             os.makedirs(destination_folder, exist_ok=True)
             subprocess.run(["python", PYTHON_SCRIPT, end_time.strftime('%Y-%m-%d'), hhmm, source_drive, destination_folder])
@@ -57,6 +66,14 @@ def process_data(end_time, start_time):
 
     if processed_any:
         print(f"Processed data from {end_time.strftime('%Y-%m-%d %H:%M')} to {start_time.strftime('%Y-%m-%d %H:%M')}, skipping the most recent time slot")
+    else:
+        print(f"No data processed for period ending at {end_time.strftime('%Y-%m-%d %H:%M')}.")
+
+    # Check if source drives changed and restart processing if necessary
+    if new_source_drives:
+        print("Source drives changed, restarting processing...")
+        return process_data(end_time, start_time)
+
     return processed_any
 
 def job():
