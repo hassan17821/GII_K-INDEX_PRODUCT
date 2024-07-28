@@ -44,7 +44,10 @@ def process_data(end_time, start_time):
     os.makedirs(destination_base, exist_ok=True)
 
     processed_any = False
-    new_source_drives = []
+
+    # Extract source drive paths
+    current_source_drive_paths = {source_drive for _, source_drive in source_drives}
+
     for hhmm, source_drive in source_drives:
         current_time = datetime.datetime.now()
         adjusted_time_temp = current_time - datetime.timedelta(hours=TIME_DELTA_HOURS * 2)
@@ -54,8 +57,13 @@ def process_data(end_time, start_time):
         source_drives_temp = get_source_drives(adjusted_time_temp)
         print("SOURCE_DRIVE_TEMP_0 ", source_drives_temp[0] if source_drives_temp else "No drives")
 
-        if source_drives_temp and source_drives_temp[0] != source_drives[0]:
-            new_source_drives = source_drives_temp
+        # Extract new source drive paths
+        new_source_drive_paths = {source_drive for _, source_drive in source_drives_temp}
+
+        # Compare current and new source drive paths
+        if new_source_drive_paths != current_source_drive_paths:
+            print("Source drives changed, restarting processing...")
+            return process_data(end_time, start_time)
 
         if os.path.exists(source_drive):
             destination_folder = os.path.join(destination_base, hhmm)
@@ -68,11 +76,6 @@ def process_data(end_time, start_time):
         print(f"Processed data from {end_time.strftime('%Y-%m-%d %H:%M')} to {start_time.strftime('%Y-%m-%d %H:%M')}, skipping the most recent time slot")
     else:
         print(f"No data processed for period ending at {end_time.strftime('%Y-%m-%d %H:%M')}.")
-
-    # Check if source drives changed and restart processing if necessary
-    if new_source_drives:
-        print("Source drives changed, restarting processing...")
-        return process_data(end_time, start_time)
 
     return processed_any
 
